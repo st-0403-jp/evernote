@@ -10,7 +10,11 @@
   "devDependencies": {
     "ejs": "^2.4.1",
     "express": "^4.13.4",
-    "gulp-ejs": "^2.1.1"
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-ejs": "^2.1.1",
+    "gulp-webserver": "^0.9.1",
+    "request": "^2.72.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
