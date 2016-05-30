@@ -3,6 +3,9 @@ var path = require('path');
 
 var api = require('./api');
 var util = require('./util');
+
+var Evernote = require('evernote').Evernote;
+
 var express = require('express');
 var app = express();
 
@@ -32,9 +35,22 @@ app.get('/manager', function (req, res) {
       console.log(err);
       return false;
     }
+    /*
     console.log(oauthAccessToken);
     console.log(oauthAccessTokenSecret);
     console.log(results);
+    */
+    var clientAccess = new Evernote.Client({token: oauthAccessToken});
+    var userStore = clientAccess.getUserStore();
+    userStore.getUser(function(err, user) {
+      // run this code
+      console.log(user);
+    });
+    var noteStore = clientAccess.getNoteStore();
+    notebooks = noteStore.listNotebooks(function(err, notebooks) {
+      // run this code
+      console.log(notebooks);
+    });
   });
   res.render('index', { title: 'EvernoteAPI' });
   res.send();
