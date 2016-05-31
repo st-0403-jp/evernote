@@ -1,5 +1,6 @@
 /*do.js*/
 var path = require('path');
+var fs = require('fs');
 
 var api = require('./api');
 var util = require('./util');
@@ -64,9 +65,23 @@ app.get('/manager', function (req, res) {
         }
         noteStore.getNote(notesData.notes[1].guid, true, true, true, true, function(err, note) {
             console.log(err || note);
+            var toDate = new Date().getTime();
+            var noteTitle = notesData.notes[1].title;
             var noteHtml = enml.HTMLOfENML(note.content, note.resources);
-            res.render('index', { title: 'EvernoteAPI', note: notesData.notes[1].title, html: noteHtml });
+            res.render('index', { date: toDate, noteTitle: noteTitle, html: noteHtml });
             res.send();
+
+            //tmpDataフォルダにdata.json作る
+            fs.readdir(__dirname + '/src/tmpData', function (err, files) {
+              if (err) {
+                console.log(err);
+                fs.mkdirSync(__dirname + '/src/tmpData', 0755);
+              }
+              var buf = new Buffer(JSON.stringify({'date': toDate, 'title': noteTitle,'html': noteHtml}, null, ''));
+              fs.writeFile(__dirname + '/src/tmpData/data.json', buf, function (err) {
+                if (err) {throw err;}
+              });
+            });
         });
         //console.log(notesData.getNotes());
         /*
