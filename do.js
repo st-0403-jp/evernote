@@ -5,6 +5,7 @@ var api = require('./api');
 var util = require('./util');
 
 var Evernote = require('evernote').Evernote;
+var enml = require('enml-js');
 
 var express = require('express');
 var app = express();
@@ -40,19 +41,49 @@ app.get('/manager', function (req, res) {
     console.log(oauthAccessTokenSecret);
     console.log(results);
     */
+    //console.log(oauthToken);
+    //console.log(oauthAccessToken);
     var clientAccess = new Evernote.Client({token: oauthAccessToken});
+    /*
     var userStore = clientAccess.getUserStore();
     userStore.getUser(function(err, user) {
       // run this code
-      console.log(user);
+      //console.log(user);
     });
+    */
     var noteStore = clientAccess.getNoteStore();
-    notebooks = noteStore.listNotebooks(function(err, notebooks) {
+    var noteFilter = new Evernote.NoteFilter();
+    var notesMetadataResultSpec = new Evernote.NotesMetadataResultSpec({
+        includeTitle: true
+    });
+    var pageSize = 10;
+    noteStore.findNotesMetadata(oauthAccessToken, noteFilter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
+        if (err) {
+            console.log(err);
+            return false;
+        }
+        noteStore.getNote(notesData.notes[1].guid, true, true, true, true, function(err, note) {
+            console.log(err || note);
+            var noteHtml = enml.HTMLOfENML(note.content, note.resources);
+            res.render('index', { title: 'EvernoteAPI', note: notesData.notes[1].title, html: noteHtml });
+            res.send();
+        });
+        //console.log(notesData.getNotes());
+        /*
+        int matchingNotes = notes.getTotalNotes();
+        int notesThisPage = notes.getNotes().size();
+
+        for (NoteMetadata note : notes.getNotes()) {
+            System.out.println(note.getTitle());
+        }
+        */
+    });
+    /*
+    noteStore.listNotebooks(function(err, notebooks) {
       // run this code
       console.log(notebooks);
     });
+    */
   });
-  res.render('index', { title: 'EvernoteAPI' });
-  res.send();
 });
 app.listen(3000);//172.20.10.4

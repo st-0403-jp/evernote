@@ -9,8 +9,8 @@ var fs = require('fs');
 var Evernote = require('evernote').Evernote;
 
 var client = new Evernote.Client({
-  consumerKey: 'sato252011-7217',
-  consumerSecret: '52dba2f462408a5d',
+  consumerKey: 'sato252011-7373',//'sato252011-7217',
+  consumerSecret: 'a59a91f11f6b3d5e',//'52dba2f462408a5d',
   sandbox: true // Optional (default: true)
 });
 
