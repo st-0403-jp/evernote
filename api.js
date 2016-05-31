@@ -24,7 +24,7 @@ module.exports = (function () {
   method.oauthTokenSecret = null;
 
   method.init = function (req, res) {
-    client.getRequestToken('http://10.17.208.153:3000/manager/', function(err, oauthToken, oauthTokenSecret, results) {
+    client.getRequestToken('http://172.20.10.4:3000/manager/'/*'http://10.17.208.153:3000/manager/'*/, function(err, oauthToken, oauthTokenSecret, results) {
       // store tokens in the session
       if (err) {
         console.log(err);

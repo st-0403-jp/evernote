@@ -69,7 +69,7 @@ app.get('/manager', function (req, res) {
             var noteTitle = note.title/*notesData.notes[1].title*/;
             var noteHtml = enml.HTMLOfENML(note.content, note.resources);
             var noteText = enml.PlainTextOfENML(note.content, note.resources);
-            var noteUpdate = note.updated;
+            var noteUpdate = note.updated + '';
             console.log(noteText);
             res.render('index', { update: noteUpdate, noteTitle: noteTitle, body: noteText });
             res.send();
@@ -86,10 +86,14 @@ app.get('/manager', function (req, res) {
                     console.log(err);
                     fs.mkdirSync(__dirname + '/src/tmpData/' + noteUpdate, 0755);
                 }
-              });
-              var buf = new Buffer(JSON.stringify({'update': noteUpdate, 'title': noteTitle,'html': noteText}, null, ''));
-              fs.writeFile(__dirname + '/src/tmpData/' + noteUpdate + '/data.json', buf, function (err) {
-                if (err) {throw err;}
+                var noteBuf = new Buffer(JSON.stringify({'update': noteUpdate, 'noteTitle': noteTitle, 'noteText': noteText}, null, ''));
+                var upDateListBuf = new Buffer(JSON.stringify({'updateList': [noteUpdate]}, null, ''));
+                fs.writeFile(__dirname + '/src/tmpData/' + noteUpdate + '/note.json', noteBuf, function (err) {
+                  if (err) {throw err;}
+                });
+                fs.writeFile(__dirname + '/src/tmpData/noteUpdateList.json', upDateListBuf, function (err) {
+                  if (err) {throw err;}
+                });
               });
             });
         });

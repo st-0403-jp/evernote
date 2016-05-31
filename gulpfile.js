@@ -7,36 +7,32 @@ var clean = require('gulp-clean');
 var server = require('gulp-webserver');
 var ejs = require('gulp-ejs');
 
-var tmpData;
-fs.readdir('src/tmpData/', function (err, files) {
+var mockFlg = null;
+var tmpData = null;
+var noteUpdateList = JSON.parse(fs.readFileSync('src/tmpData/noteUpdateList.json', 'utf-8'));
+//console.log(noteUpdateList.updateList[0]);
+fs.readdir('src/tmpData/', function (err, dirs) {
   if (err) {
     return false;
   }
   //tmpData
-  files.filter(function (json) {
-    return (fs.statSync('src/tmpData/' + json).isFile());
-  }).forEach(function (jsonFile) {
-    var jsonData = JSON.parse(fs.readFileSync('src/tmpData/' + jsonFile, 'utf-8'));
+  dirs.filter(function (dir) {
+    return (fs.statSync('src/tmpData/' + dir).isDirectory() && noteUpdateList.updateList[0] === dir);
+  }).forEach(function (jsonDir) {
+    var jsonData = JSON.parse(fs.readFileSync('src/tmpData/' + jsonDir + '/note.json', 'utf-8'));
     tmpData = jsonData;
   });
 });
 
-
-gulp.task('serve', function () {
-  gulp.src('prod')
-    .pipe(server({
-      host: '0.0.0.0',
-      port: 8808,
-      livereload: true,
-      open: false
-    }));
+gulp.task('mock', function () {
+  mockFlg = true;
 });
 
 gulp.task('view', function () {
   return setTimeout(function () {
     gulp.src('src/tmp/index.ejs')
     .pipe(ejs(tmpData, {ext: '.html'}))
-    .pipe(gulp.dest('prod/view'));
+    .pipe((mockFlg) ? gulp.dest('mock/view') : gulp.dest('prod/view'));
   }, 100);
 });
 
@@ -56,9 +52,22 @@ gulp.task('js', function () {
   .pipe(gulp.dest('prod/js'));
 });
 
+gulp.task('serve', function () {
+  gulp.src('prod')
+    .pipe(server({
+      host: '0.0.0.0',
+      port: 8808,
+      livereload: true,
+      open: true
+    }));
+});
+
 gulp.task('prod', ['ejs', 'view', 'css', 'js'], function () {
   console.log('prod完了')
 });
 
 gulp.task('default', function () {
+  setTimeout(function () {
+    console.log(tmpData);
+  }, 100);
 });
