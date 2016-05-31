@@ -64,11 +64,14 @@ app.get('/manager', function (req, res) {
             return false;
         }
         noteStore.getNote(notesData.notes[1].guid, true, true, true, true, function(err, note) {
-            console.log(err || note);
+            //console.log(err || note);
             var toDate = new Date().getTime();
-            var noteTitle = notesData.notes[1].title;
+            var noteTitle = note.title/*notesData.notes[1].title*/;
             var noteHtml = enml.HTMLOfENML(note.content, note.resources);
-            res.render('index', { date: toDate, noteTitle: noteTitle, html: noteHtml });
+            var noteText = enml.PlainTextOfENML(note.content, note.resources);
+            var noteUpdate = note.updated;
+            console.log(noteText);
+            res.render('index', { update: noteUpdate, noteTitle: noteTitle, body: noteText });
             res.send();
 
             //tmpDataフォルダにdata.json作る
@@ -77,8 +80,15 @@ app.get('/manager', function (req, res) {
                 console.log(err);
                 fs.mkdirSync(__dirname + '/src/tmpData', 0755);
               }
-              var buf = new Buffer(JSON.stringify({'date': toDate, 'title': noteTitle,'html': noteHtml}, null, ''));
-              fs.writeFile(__dirname + '/src/tmpData/data.json', buf, function (err) {
+              //evernote更新日付でディレクトリを作る
+              fs.readdir(__dirname + '/src/tmpData/' + noteUpdate, function (err, files) {
+                if (err) {
+                    console.log(err);
+                    fs.mkdirSync(__dirname + '/src/tmpData/' + noteUpdate, 0755);
+                }
+              });
+              var buf = new Buffer(JSON.stringify({'update': noteUpdate, 'title': noteTitle,'html': noteText}, null, ''));
+              fs.writeFile(__dirname + '/src/tmpData/' + noteUpdate + '/data.json', buf, function (err) {
                 if (err) {throw err;}
               });
             });
