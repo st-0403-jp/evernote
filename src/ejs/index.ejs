@@ -8,6 +8,9 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <script type="text/javascript" src="lib/handlebars.min.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/common.hb.js"></script>
+<script type="text/javascript" src="js/common.doXhr.js"></script>
+<script type="text/javascript" src="js/page.js"></script>
 <title>My Blog</title>
 </head>
 <body>
@@ -16,19 +19,25 @@
     <header>ヘッダー</header>
     <section>
         <article>
+            <!-- テンプレート -->
         </article>
         <div class="dummy_article"></div>
-        <aside></aside>
+        <aside>補足記事</aside>
     </section>
     <footer>
         <p>フッター</p>
         <p>&copy; 2016 SatoruTanaka All Rights Reserved</p>
     </footer>
 </div>
-<script id="blog-temp" type="text/x-handlebars-template">
-    <h2>ラーメンテスト</h2>
-    <p>【場所】新宿【日時】2016/06/01</p>
+<script id="temp-ramen" type="text/x-handlebars-template">
+    {{#object}}
+        <h2>{{noteTitle}}</h2>
+        <p>{{noteText}}</p>
+    {{/object}}
 </script>
+<script id="temp-top" type="text/x-handlebars-template">
+    <h2>トップトップトップ</h2>
+</script>
+<script type="text/javascript" src="js/center.js"></script>
 </body>
-<script type="text/javascript" src="js/page.js"></script>
 </html>

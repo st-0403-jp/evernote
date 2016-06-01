@@ -86,7 +86,7 @@ app.get('/manager', function (req, res) {
                     console.log(err);
                     fs.mkdirSync(__dirname + '/src/tmpData/' + noteUpdate, 0755);
                 }
-                var noteBuf = new Buffer(JSON.stringify({'update': noteUpdate, 'noteTitle': noteTitle, 'noteText': noteText}, null, ''));
+                var noteBuf = new Buffer(JSON.stringify({object: [{update: noteUpdate, noteTitle: noteTitle, noteText: noteText}]}, null, ''));
                 var upDateListBuf = new Buffer(JSON.stringify({'updateList': [noteUpdate]}, null, ''));
                 fs.writeFile(__dirname + '/src/tmpData/' + noteUpdate + '/note.json', noteBuf, function (err) {
                   if (err) {throw err;}
