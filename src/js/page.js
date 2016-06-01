@@ -1,8 +1,15 @@
-page.test = (function () {
+page.render = (function () {
     var execute = {};
 
-    execute.init = function () {
-        common.doXhr.request('GET', '../viewData/1464586592000/note.json', 'application/json');
+    execute.init = function (viewDir) {
+        common.doXhr.request({
+            methodType: 'GET',
+            path: '../viewData/'+ viewDir +'/note.json',
+            contentType: 'application/json',
+            callback: function (response) {
+                common.hb.insert('#temp-ramen', 'article', response);
+            }
+        });
     };
 
     return execute;

@@ -33,16 +33,15 @@ gulp.task('view', function () {
 });
 */
 gulp.task('viewData', function () {
-  gulp.src('src/tmpData/noteUpdateList.json')
+  gulp.src('src/tmpData/createdList.json')
   .pipe(gulp.dest('prod/viewData/'));
-  var noteUpdateList = JSON.parse(fs.readFileSync('src/tmpData/noteUpdateList.json', 'utf-8'));
-  //console.log(noteUpdateList.updateList[0]);
+  var createdList = JSON.parse(fs.readFileSync('src/tmpData/createdList.json', 'utf-8'));
   fs.readdir('src/tmpData/', function (err, dirs) {
     if (err) {
       return false;
     }
     dirs.filter(function (dir) {
-      return (fs.statSync('src/tmpData/' + dir).isDirectory() && noteUpdateList.updateList[0] === dir);
+      return (fs.statSync('src/tmpData/' + dir).isDirectory() && createdList.createdList[0] === dir);
     }).forEach(function (jsonDir) {
       gulp.src('src/tmpData/' + jsonDir + '/note.json')
       .pipe(gulp.dest('prod/viewData/' + jsonDir));
@@ -66,7 +65,7 @@ gulp.task('js', function () {
   .pipe(gulp.dest('prod/js'));
 });
 
-gulp.task('serve', ['viewData', 'ejs', 'css', 'js'], function () {
+gulp.task('serve', ['ejs', 'css', 'js'], function () {
   gulp.watch(['src/ejs/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['ejs', 'css', 'js']);
   gulp.src('prod')
     .pipe(server({

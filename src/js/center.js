@@ -1,4 +1,4 @@
-
+//1464586504000
 window.onload = function () {
     console.info('load!');
 
@@ -6,7 +6,7 @@ window.onload = function () {
 
     var hash = location.hash.replace('#!', '');
 
-    page[hash].init();
+    page.render.init(hash);
 
     window.onhashchange = function () {
         hash = location.hash.replace('#!', '');
