@@ -7,7 +7,7 @@ var clean = require('gulp-clean');
 var server = require('gulp-webserver');
 var ejs = require('gulp-ejs');
 
-var mockFlg = null;
+/*
 var tmpData = null;
 var noteUpdateList = JSON.parse(fs.readFileSync('src/tmpData/noteUpdateList.json', 'utf-8'));
 //console.log(noteUpdateList.updateList[0]);
@@ -24,16 +24,28 @@ fs.readdir('src/tmpData/', function (err, dirs) {
   });
 });
 
-gulp.task('mock', function () {
-  mockFlg = true;
-});
-
 gulp.task('view', function () {
   return setTimeout(function () {
     gulp.src('src/tmp/index.ejs')
     .pipe(ejs(tmpData, {ext: '.html'}))
-    .pipe((mockFlg) ? gulp.dest('mock/view') : gulp.dest('prod/view'));
+    .pipe(gulp.dest('prod/view'));
   }, 100);
+});
+*/
+gulp.task('viewData', function () {
+  var noteUpdateList = JSON.parse(fs.readFileSync('src/tmpData/noteUpdateList.json', 'utf-8'));
+  //console.log(noteUpdateList.updateList[0]);
+  fs.readdir('src/tmpData/', function (err, dirs) {
+    if (err) {
+      return false;
+    }
+    dirs.filter(function (dir) {
+      return (fs.statSync('src/tmpData/' + dir).isDirectory() && noteUpdateList.updateList[0] === dir);
+    }).forEach(function (jsonDir) {
+      gulp.src('src/tmpData/' + jsonDir + '/note.json')
+      .pipe(gulp.dest('prod/viewData'));
+    });
+  });
 });
 
 gulp.task('ejs', function () {
@@ -52,7 +64,8 @@ gulp.task('js', function () {
   .pipe(gulp.dest('prod/js'));
 });
 
-gulp.task('serve', function () {
+gulp.task('serve', ['viewData', 'ejs', 'css', 'js'], function () {
+  gulp.watch(['src/ejs/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['ejs', 'css', 'js']);
   gulp.src('prod')
     .pipe(server({
       host: '0.0.0.0',
@@ -62,8 +75,8 @@ gulp.task('serve', function () {
     }));
 });
 
-gulp.task('prod', ['ejs', 'view', 'css', 'js'], function () {
-  console.log('prod完了')
+gulp.task('prod', ['viewData', 'ejs', 'css', 'js'], function () {
+  console.log('prod完了');
 });
 
 gulp.task('default', function () {

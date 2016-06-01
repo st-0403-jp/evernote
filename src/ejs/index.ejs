@@ -4,13 +4,31 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Language" content="ja">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/cee" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="lib/sanitize.css">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<script type="text/javascript" src="lib/handlebars.min.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
 <title>My Blog</title>
 </head>
 <body>
 <h1>ブログテスト</h1>
 <div id="container">
+    <header>ヘッダー</header>
+    <section>
+        <article>
+        </article>
+        <div class="dummy_article"></div>
+        <aside></aside>
+    </section>
+    <footer>
+        <p>フッター</p>
+        <p>&copy; 2016 SatoruTanaka All Rights Reserved</p>
+    </footer>
 </div>
+<script id="blog-temp" type="text/x-handlebars-template">
+    <h2>ラーメンテスト</h2>
+    <p>【場所】新宿【日時】2016/06/01</p>
+</script>
 </body>
 <script type="text/javascript" src="js/page.js"></script>
 </html>
