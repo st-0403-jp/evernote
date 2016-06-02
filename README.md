@@ -91,7 +91,7 @@ app.get('/manager', function (req, res) {
       return false;
     }
 ```
-* OAuthトークンとそのクエリを使ってアクセストークンをGetできる
+* アクセストークンをもらえた
 
 ```
 var clientAccess = new Evernote.Client({token: oauthAccessToken});
