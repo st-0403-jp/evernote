@@ -14,7 +14,9 @@ Evernoteのノートデータを取得し、そのデータをブログサイト
 
 ###Evernote開発用アカウントにOAuth認証
 * Evernote Devloperサイトで開発用アカウントを作り、consumerKeyを取得
-```var client = new Evernote.Client({
+
+```
+var client = new Evernote.Client({
   consumerKey: 'sato252011-7373',//'sato252011-7217',
   consumerSecret: 'a59a91f11f6b3d5e',//'52dba2f462408a5d',
   sandbox: true // Optional (default: true)
