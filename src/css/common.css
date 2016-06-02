@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #c0c0c0;
+    color: #222;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+#container {
+    width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 0 12px;
+}
+
+header {
+    height: 50px;
+}
+
+footer {
+    height: 50px;
+}
+
+section {
+    display: box;
+    display: -webkit-box;
+    display: -mos-box;
+    height: 500px;
+}
+
+article {
+    width: 70%;
+    background-color: #eee;
+}
+
+aside {
+    width: 29%;
+    background-color: #c0c0c0;
+}
+
+.dummy_article {
+    width: 1%;
+}
+
+.test_p {
+    font-size: 20px;
+    color: #f90;
+}

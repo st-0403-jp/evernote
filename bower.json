@@ -1,0 +1,23 @@
+{
+  "name": "mysite",
+  "authors": [
+    "田中　暁 <satoru_tanaka@waku-2.com>"
+  ],
+  "description": "This site of business and works",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "sanitize-css": "^3.3.0",
+    "bootflat": "*",
+    "less": "^2.6.1",
+    "handlebars": "^4.0.5"
+  }
+}
