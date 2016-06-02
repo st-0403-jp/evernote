@@ -50,8 +50,8 @@ package.json
 
 ```
 var client = new Evernote.Client({
-  consumerKey: 'sato252011-7373',//'sato252011-7217',
-  consumerSecret: 'a59a91f11f6b3d5e',//'52dba2f462408a5d',
+  consumerKey: '*********',//
+  consumerSecret: '***********',
   sandbox: true // Optional (default: true)
 });
 ```
