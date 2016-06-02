@@ -7,7 +7,12 @@ page.render = (function () {
             path: '../viewData/'+ viewDir +'/note.json',
             contentType: 'application/json',
             callback: function (response) {
-                common.hb.insert('#temp-ramen', 'article', response);
+                if (viewDir === '1464586504000') {
+                    common.hb.insert('#temp-ramen', 'article', response);
+                }
+                if (viewDir === 'test') {
+                    common.hb.insert('#temp-test', 'article', response);
+                };
             }
         });
     };
@@ -20,7 +25,7 @@ page.top = (function () {
 
     execute.init = function () {
         console.log('top');
-        common.hb.insert('#temp-top', 'article', null);
+        common.hb.insert('#temp-test', 'article', null);
     };
 
     return execute;

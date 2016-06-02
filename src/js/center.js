@@ -10,6 +10,6 @@ window.onload = function () {
 
     window.onhashchange = function () {
         hash = location.hash.replace('#!', '');
-        page[hash].init();
+        page.render.init(hash);
     };
 };

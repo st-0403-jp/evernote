@@ -49,3 +49,8 @@ aside {
 .dummy_article {
     width: 1%;
 }
+
+.test_p {
+    font-size: 20px;
+    color: #f90;
+}

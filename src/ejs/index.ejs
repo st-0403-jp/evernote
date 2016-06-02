@@ -30,13 +30,16 @@
     </footer>
 </div>
 <script id="temp-ramen" type="text/x-handlebars-template">
-    {{#object}}
-        <h2 class="test">{{noteTitle}}</h2>
-        <p>{{noteText}}</p>
-    {{/object}}
+{{#object}}
+    <h2>{{noteTitle}}</h2>
+    <p>{{noteText}}</p>
+{{/object}}
 </script>
-<script id="temp-top" type="text/x-handlebars-template">
-    <h2>トップトップトップ</h2>
+<script id="temp-test" type="text/x-handlebars-template">
+{{#object}}
+    <h2>{{noteTitle}}</h2>
+    <p class="test_p">{{noteText}}</p>
+{{/object}}
 </script>
 <script type="text/javascript" src="js/center.js"></script>
 </body>
