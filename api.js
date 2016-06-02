@@ -30,14 +30,6 @@ module.exports = (function () {
         console.log(err);
         return false;
       }
-      //セットパラメータ
-      /*
-      console.log(oauthToken);
-      console.log(oauthTokenSecret);
-      console.log(results);
-      */
-      this.oauthToken = oauthToken;
-      this.oauthTokenSecret = oauthTokenSecret;
       //evernoteと連携する
       res.redirect(client.getAuthorizeUrl(oauthToken));
     });
