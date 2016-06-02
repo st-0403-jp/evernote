@@ -12,6 +12,39 @@ Evernoteのノートデータを取得し、そのデータをブログサイト
 
 ##挙動
 
+###必要モジュール
+
+```
+package.json
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "do.js",
+  "dependencies": {
+    "evernote": "^1.25.82", //Evernote用のメソッドが使える
+  },
+  "devDependencies": {
+    "ejs": "^2.4.1",
+    "enml-js": "^0.1.3", //Evernote専用のタグをHTMLやTextに変換してくれる
+    "express": "^4.13.4", //4系は情報が少ない
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-ejs": "^2.1.1",
+    "gulp-webserver": "^0.9.1",
+    "handlebars-json": "^1.0.0",
+    "request": "^2.72.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node do.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+```
+
 ###Evernote開発用アカウントにOAuth認証
 * Evernote Devloperサイトで開発用アカウントを作り、consumerKeyを取得
 
