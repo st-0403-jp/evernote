@@ -9,8 +9,8 @@ var fs = require('fs');
 var Evernote = require('evernote').Evernote;
 
 var client = new Evernote.Client({
-  consumerKey: 'sato252011-7373',//'sato252011-7217',
-  consumerSecret: 'a59a91f11f6b3d5e',//'52dba2f462408a5d',
+  consumerKey: 'sato252011-6631',//'sato252011-7217',
+  consumerSecret: 'f0e91859ed625462',//'52dba2f462408a5d',
   sandbox: true // Optional (default: true)
 });
 
@@ -24,7 +24,7 @@ module.exports = (function () {
   method.oauthTokenSecret = null;
 
   method.init = function (req, res) {
-    client.getRequestToken(/*'http://192.168.179.2:3000/manager/'*/'http://10.17.208.153:3000/manager/', function(err, oauthToken, oauthTokenSecret, results) {
+    client.getRequestToken('http://192.168.179.2:3000/manager/'/*'http://10.17.208.153:3000/manager/'*/, function(err, oauthToken, oauthTokenSecret, results) {
       // store tokens in the session
       if (err) {
         console.log(err);

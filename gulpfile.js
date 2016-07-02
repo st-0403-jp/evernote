@@ -8,8 +8,7 @@ var server = require('gulp-webserver');
 var ejs = require('gulp-ejs');
 
 var tmpData = [];
-var noteUpdateList = JSON.parse(fs.readFileSync('src/tmpData/createdList.json', 'utf-8'));
-//console.log(noteUpdateList.updateList[0]);
+var tmpDataList = JSON.parse(fs.readFileSync('src/tmpData/createdList.json', 'utf-8'));
 fs.readdir('src/tmpData', function (err, dirs) {
   if (err) {
     return false;
@@ -18,18 +17,14 @@ fs.readdir('src/tmpData', function (err, dirs) {
   dirs.filter(function (dir) {
     return (fs.statSync('src/tmpData/' + dir).isDirectory());
   }).forEach(function (jsonDir) {
-    tmpData.push(fs.readFileSync('src/tmpData/' + jsonDir + '/note.json', 'utf-8'));
+    tmpData.push(JSON.parse(fs.readFileSync('src/tmpData/' + jsonDir + '/note.json', 'utf-8')));
   });
 });
 
-gulp.task('view', function () {
-  return setTimeout(function () {
-    gulp.src('src/tmp/index.ejs')
-    .pipe(ejs(tmpData, {ext: '.html'}))
-    .pipe(gulp.dest('prod/view'));
-  }, 100);
+gulp.task('clean', function () {
 });
 
+/*
 gulp.task('viewData', function () {
   gulp.src('src/tmpData/createdList.json')
   .pipe(gulp.dest('prod/viewData/'));
@@ -46,12 +41,15 @@ gulp.task('viewData', function () {
     });
   });
 });
+*/
 
 gulp.task('viewEjs', function () {
   return setTimeout(function () {
-    gulp.src('src/tmp/index.ejs')
-    .pipe(ejs(tmpData.object[0], {ext: '.html'}))
-    .pipe(gulp.dest('prod/viewData/'));
+    tmpDataList.createdList.filter(function (createdDate) {
+      return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
+    }).forEach(function (dir, index) {
+      gulp.src('src/tmp/index.ejs').pipe(ejs(tmpData[index], {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+    });
   }, 100);
 });
 
@@ -88,6 +86,6 @@ gulp.task('prod', ['ejs', 'css', 'js'], function () {
 
 gulp.task('default', function () {
   setTimeout(function () {
-    console.log(tmpData);
+    console.log(tmpDataList.createdList[0]);
   }, 100);
 });

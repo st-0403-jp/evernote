@@ -57,7 +57,7 @@ app.get('/manager', function (req, res) {
             var noteText = enml.PlainTextOfENML(note.content, note.resources);
             var noteUpdate = note.updated + '';
             var noteCreated = note.created + '';
-            console.log(note);
+            //console.log(note);
             res.render('index', { created: noteCreated, update: noteUpdate, noteTitle: noteTitle, body: noteText });
             res.send();
 
@@ -73,7 +73,7 @@ app.get('/manager', function (req, res) {
                     console.log(err);
                     fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
                 }
-                var noteBuf = new Buffer(JSON.stringify({object: [{created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}]}, null, ''));
+                var noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
                 var createdListBuf = new Buffer(JSON.stringify({'createdList': [noteCreated]}, null, ''));
                 fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
                   if (err) {throw err;}
