@@ -1,13 +1,12 @@
 common.doXhr = (function () {
     var method = {};
 
-    var xhr = new XMLHttpRequest();
-
     /*
      * requestData
      * @{ methodType: , path: , contentType: , callback: , }
      */
     method.request = function (requestData) {
+        var xhr = new XMLHttpRequest();
         var methodType = requestData.methodType;
         var path = requestData.path;
         var contentType = requestData.contentType;
