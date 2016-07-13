@@ -49,41 +49,43 @@ app.get('/manager', function (req, res) {
             console.log(err);
             return false;
         }
-        noteStore.getNote(notesData.notes[1].guid, true, true, true, true, function(err, note) {
+        //noteデータの変数
+        var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
+        //noteの保存に使うデータの変数
+        var noteBuf, createdListBuf;
+        var createdList = [];
+        notesData.notes.forEach(function (noteData, index) {
+          noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
             //console.log(err || note);
-            var toDate = new Date().getTime();
-            var noteTitle = note.title/*notesData.notes[1].title*/;
-            var noteHtml = enml.HTMLOfENML(note.content, note.resources);
-            var noteText = enml.PlainTextOfENML(note.content, note.resources);
-            var noteUpdate = note.updated + '';
-            var noteCreated = note.created + '';
-            //console.log(note);
-            res.render('index', { created: noteCreated, update: noteUpdate, noteTitle: noteTitle, body: noteText });
-            res.send();
+            noteTitle = note.title;
+            noteHtml = enml.HTMLOfENML(note.content, note.resources);
+            noteText = enml.PlainTextOfENML(note.content, note.resources);
+            noteUpdate = note.updated + '';
+            noteCreated = note.created + '';
+            console.log(note);
 
-            //tmpDataフォルダにdata.json作る
-            fs.readdir(__dirname + '/src/tmpData', function (err, files) {
+            //evernote更新日付でディレクトリを作る
+            fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
               if (err) {
-                console.log(err);
-                fs.mkdirSync(__dirname + '/src/tmpData', 0755);
+                  fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
               }
-              //evernote更新日付でディレクトリを作る
-              fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
-                if (err) {
-                    console.log(err);
-                    fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
-                }
-                var noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
-                var createdListBuf = new Buffer(JSON.stringify({'createdList': [noteCreated]}, null, ''));
-                fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
-                  if (err) {throw err;}
-                });
-                fs.writeFile(__dirname + '/src/tmpData/createdList.json', createdListBuf, function (err) {
-                  if (err) {throw err;}
-                });
+
+              noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
+              createdList.push(noteCreated);
+              createdListBuf = new Buffer(JSON.stringify({'createdList': createdList}, null, ''));
+
+              fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
+                //if (err) {throw err;}
+                console.log(err);
+              });
+              fs.writeFile(__dirname + '/src/tmpData/createdList.json', createdListBuf, function (err) {
+                //if (err) {throw err;}
               });
             });
+          });
         });
+        res.render('index', {noteTitle: 'マネージャー', body: '管理画面'});
+        res.send();
     });
   });
 });
