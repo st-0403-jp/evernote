@@ -54,9 +54,8 @@ app.get('/manager', function (req, res) {
         var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
         //noteの保存に使うデータの変数
         var noteBuf, createdListBuf;
-        var createdList = [];
 
-        async.eachSeries(notesData.notes, function (noteData, next) {
+        async.mapSeries(notesData.notes, function (noteData, next) {
           noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
             //console.log(err || note);
             noteTitle = note.title;
@@ -76,19 +75,17 @@ app.get('/manager', function (req, res) {
               fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
 
               noteBuf = new Buffer(JSON.stringify({today: '2016/07/15', created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
-              createdList.push(noteCreated);
-              createdListBuf = new Buffer(JSON.stringify({'createdList': createdList}, null, ''));
 
               fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
                 if (err) {throw err;}
-              });
-              // 後々マッピングするためのディレクトリデータ
-              fs.writeFile(__dirname + '/src/tmpData/createdList.json', createdListBuf, function (err) {
-                if (err) {throw err;}
-                next();
+                next(null, noteCreated);
               });
             });
           });
+        }, function (err, results) {
+          if (err) {throw err;}
+          // 後々マッピングするためのディレクトリデータ
+            fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
         });
         res.render('index', {noteTitle: 'マネージャー', body: '管理画面'});
         res.send();
