@@ -1,6 +1,7 @@
 /*do.js*/
 var path = require('path');
 var fs = require('fs');
+var async = require('async');
 
 var api = require('./api');
 var util = require('./util');
@@ -54,7 +55,8 @@ app.get('/manager', function (req, res) {
         //noteの保存に使うデータの変数
         var noteBuf, createdListBuf;
         var createdList = [];
-        notesData.notes.forEach(function (noteData, index) {
+
+        async.eachSeries(notesData.notes, function (noteData, next) {
           noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
             //console.log(err || note);
             noteTitle = note.title;
@@ -66,20 +68,24 @@ app.get('/manager', function (req, res) {
 
             //evernote更新日付でディレクトリを作る
             fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
-              if (err) {
-                  fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
+              if (!err) {
+                // ディレクトリがあったら削除する
+                fs.unlinkSync(__dirname + '/src/tmpData/' + noteCreated + '/note.json');
+                fs.rmdirSync(__dirname + '/src/tmpData/' + noteCreated);
               }
+              fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
 
-              noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
+              noteBuf = new Buffer(JSON.stringify({today: '2016/07/15', created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
               createdList.push(noteCreated);
               createdListBuf = new Buffer(JSON.stringify({'createdList': createdList}, null, ''));
 
               fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
-                //if (err) {throw err;}
-                console.log(err);
+                if (err) {throw err;}
               });
+              // 後々マッピングするためのディレクトリデータ
               fs.writeFile(__dirname + '/src/tmpData/createdList.json', createdListBuf, function (err) {
-                //if (err) {throw err;}
+                if (err) {throw err;}
+                next();
               });
             });
           });
