@@ -25,34 +25,14 @@ gulp.task('clean', function () {
   gulp.src('prod/viewData/*').pipe(clean());
 });
 
-/*
-gulp.task('viewData', function () {
-  gulp.src('src/tmpData/createdList.json')
-  .pipe(gulp.dest('prod/viewData/'));
-  var createdList = JSON.parse(fs.readFileSync('src/tmpData/createdList.json', 'utf-8'));
-  fs.readdir('src/tmpData/', function (err, dirs) {
-    if (err) {
-      return false;
-    }
-    dirs.filter(function (dir) {
-      return (fs.statSync('src/tmpData/' + dir).isDirectory() && createdList.createdList[0] === dir);
-    }).forEach(function (jsonDir) {
-      gulp.src('src/tmpData/' + jsonDir + '/note.json')
-      .pipe(gulp.dest('prod/viewData/' + jsonDir));
-    });
-  });
-});
-*/
-
 gulp.task('ejs', ['clean'], function () {
   return setTimeout(function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
-      console.log(dir);
       gulp.src('src/ejs/tmp/index.ejs').pipe(ejs(tmpData[index], {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
-      gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
     });
+    gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
   }, 100);
 });
 
