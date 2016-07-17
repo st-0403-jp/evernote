@@ -44,20 +44,15 @@ gulp.task('viewData', function () {
 });
 */
 
-gulp.task('viewEjs', ['clean'], function () {
+gulp.task('ejs', ['clean'], function () {
   return setTimeout(function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
       gulp.src('src/ejs/tmp/index.ejs').pipe(ejs(tmpData[index], {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
     });
   }, 100);
-});
-
-gulp.task('ejs', function () {
-  return gulp.src('src/ejs/*.ejs')
-    .pipe(ejs(null, {ext: '.html'}))
-    .pipe(gulp.dest('prod'));
 });
 
 gulp.task('css', function () {

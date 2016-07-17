@@ -18,20 +18,26 @@
     <h1>BLOG</h1>
 </header>
 <section>
-    <article>
+    <article class="top-article">
         <ul>
+            <%
+            Array.prototype.forEach.call(data, function (noteData) {
+            %>
             <li>
-                <a href="#">
+                <a href="viewData/<%= noteData.created %>" target="_blank">
                     <dl class="contents-item">
                         <dt>
-                            <h2>2016年4月3日</h2>
+                            <h2><%= noteData.noteTitle %></h2>
                         </dt>
                         <dd>
-                            <p>テストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト</p>
+                            <p><%- noteData.noteText %></p>
                         </dd>
                     </dl>
                 </a>
             </li>
+            <%
+            });
+            %>
         </ul>
     </article>
     <div class="dummy_article"></div>
@@ -40,8 +46,7 @@
     </aside>
 </section>
 <footer>
-    <p>フッター</p>
-    <p>&copy; 2016 SatoruTanaka All Rights Reserved</p>
+    <p class="copyrights">&copy; 2016 SatoruTanaka All Rights Reserved</p>
 </footer>
 <!-- <script type="text/javascript" src="js/center.js"></script> -->
 </body>
