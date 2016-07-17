@@ -22,6 +22,7 @@ fs.readdir('src/tmpData', function (err, dirs) {
 });
 
 gulp.task('clean', function () {
+  gulp.src('prod/viewData/*').pipe(clean());
 });
 
 /*
@@ -43,12 +44,12 @@ gulp.task('viewData', function () {
 });
 */
 
-gulp.task('viewEjs', function () {
+gulp.task('viewEjs', ['clean'], function () {
   return setTimeout(function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
-      gulp.src('src/tmp/index.ejs').pipe(ejs(tmpData[index], {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      gulp.src('src/ejs/tmp/index.ejs').pipe(ejs(tmpData[index], {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
     });
   }, 100);
 });

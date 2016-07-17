@@ -11,7 +11,16 @@ body {
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 4em;
+}
+
+a:link {
+    color: #222;
+    text-decoration: none;
+}
+a:visited {
+    color: #222;
+    text-decoration: none;
 }
 
 section {
@@ -28,6 +37,17 @@ article {
     width: 70%;
     background-color: #eee;
 }
+article ul {
+    width: 100%;
+}
+article ul li {
+    width: 100%;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+article ul li:last-child {
+    margin-bottom: 20px;
+}
 aside {
     width: 29%;
     background-color: #c0c0c0;
@@ -37,7 +57,13 @@ aside {
     width: 1%;
 }
 
-.test_p {
-    font-size: 20px;
-    color: #f90;
+dl.contents-item {
+    width: 100%;
+    padding: 20px 12px;
+    border: 1px solid #ff69B4;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 1px #ff69B4;
 }
+dl.contents-item dt h2 {
+    font-size: 2em;
+} 
