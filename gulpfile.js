@@ -49,6 +49,7 @@ gulp.task('ejs', ['clean'], function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
+      console.log(dir);
       gulp.src('src/ejs/tmp/index.ejs').pipe(ejs(tmpData[index], {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
       gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
     });
@@ -82,6 +83,6 @@ gulp.task('prod', ['ejs', 'css', 'js'], function () {
 
 gulp.task('default', function () {
   setTimeout(function () {
-    console.log(tmpDataList.createdList[0]);
+    console.log(tmpData);
   }, 100);
 });

@@ -15,13 +15,17 @@
 </head>
 <body>
 <header>
-    <h1>BLOG</h1>
+    <h1>Take a break <span>~My blog~</span></h1>
 </header>
 <section>
     <article class="top-article">
         <ul>
             <%
-            Array.prototype.forEach.call(data, function (noteData) {
+            data.sort(function (a, b) {
+                if (a.created > b.created) return -1;
+                if (a.created < b.created) return 1;
+                return 0;
+            }).forEach(function (noteData) {
             %>
             <li>
                 <a href="viewData/<%= noteData.created %>" target="_blank">
@@ -42,7 +46,6 @@
     </article>
     <div class="dummy_article"></div>
     <aside>
-        補足記事
     </aside>
 </section>
 <footer>
