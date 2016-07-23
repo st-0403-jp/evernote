@@ -72,22 +72,22 @@ footer {
     text-align: right;
 }
 
-article.top-article ul {
+article ul.top-article {
     width: 100%;
 }
-article.top-article ul li {
+article ul.top-article li {
     width: 100%;
     margin-top: 20px;
     padding: 0 20px;
 }
-article.top-article ul li a {
+article ul.top-article li a {
     display: block;
 }
-article.top-article ul li a:hover,
-article.top-article ul li a:active {
+article ul.top-article li a:hover,
+article ul.top-article li a:active {
     box-shadow: 1px 1px 30px 1px #ff69B4;
 }
-article.top-article ul li:last-child {
+article ul.top-article li:last-child {
     margin-bottom: 20px;
 }
 

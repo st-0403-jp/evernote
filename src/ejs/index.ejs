@@ -15,11 +15,11 @@
 </head>
 <body>
 <header>
-    <h1>Take a break <span>~My blog~</span></h1>
+    <% include includes/common/header.ejs %>
 </header>
-<section>
-    <article class="top-article">
-        <ul>
+<section id="container">
+    <article>
+        <ul class="top-article">
             <%
             data.sort(function (a, b) {
                 if (a.created > b.created) return -1;
@@ -45,11 +45,10 @@
         </ul>
     </article>
     <div class="dummy_article"></div>
-    <aside>
-    </aside>
+    <aside></aside>
 </section>
 <footer>
-    <p class="copyrights">&copy; 2016 SatoruTanaka All Rights Reserved</p>
+    <% include includes/common/footer.ejs %>
 </footer>
 <!-- <script type="text/javascript" src="js/center.js"></script> -->
 </body>
