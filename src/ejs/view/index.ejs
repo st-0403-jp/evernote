@@ -18,12 +18,7 @@
     <% include ../includes/common/header.ejs %>
 </header>
 <section id="container">
-    <article>
-        <h2><%= noteTitle %></h2>
-        <p><%- noteText %></p>
-    </article>
-    <div class="dummy_article"></div>
-    <aside></aside>
+    <%- include('../includes/tmp/article.ejs', data) %>
 </section>
 <footer>
     <% include ../includes/common/footer.ejs %>
