@@ -1,6 +1,9 @@
 /*gulpfile.js*/
 
 var fs = require('fs');
+var regExp = function (string, option) {
+  return new RegExp(string, option);
+};
 
 var gulp = require("gulp");
 var clean = require('gulp-clean');
@@ -30,7 +33,9 @@ gulp.task('ejs', ['clean'], function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
-      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: {title: tmpData[index].noteTitle, text: tmpData[index].noteText}}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      var expText = regExp('\n', 'g');
+      var brText = tmpData[index].noteText.replace(expText,'<br>');
+      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: {title: tmpData[index].noteTitle, text: brText}}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
     });
     gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
   }, 100);

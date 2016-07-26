@@ -106,7 +106,6 @@ dl.contents-item dd {
     letter-spacing: 0.05em;
 }
 dl.contents-item dd p {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    text-align: right;
+    color: #fff;
 }
