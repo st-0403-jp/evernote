@@ -18,8 +18,6 @@ app.set('view engine', 'ejs'); //ejsを変える
 
 app.get('/', function(req, res) {
   api.init(req, res);
-  //res.render('index', { title: 'EvernoteAPI' });
-  //res.send();
 });
 app.get('/manager', function (req, res) {
   var oauthParam = [];
@@ -74,7 +72,7 @@ app.get('/manager', function (req, res) {
               }
               fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
 
-              noteBuf = new Buffer(JSON.stringify({today: '2016/07/15', created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
+              noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
 
               fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
                 if (err) {throw err;}
