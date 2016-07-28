@@ -42,7 +42,43 @@ app.get('/manager', function (req, res) {
     var notesMetadataResultSpec = new Evernote.NotesMetadataResultSpec({
         includeTitle: true
     });
-    var pageSize = 10;
+    var pageSize = 100;
+    //console.log(results);
+    noteStore.listNotebooks(oauthAccessToken, function (err, notebooks) {
+      if (err) {
+        console.log(notebooks);
+        return;
+      }
+      // ノート名とidの取得
+      async.mapSeries(notebooks, function (notebook, callback) {
+        var notebookGuid = notebook.guid;
+        var notebookName = notebook.name;
+
+        // ブログにアップするノートブックのみにする
+        if (notebookName === 'ラーメン' || notebookName === '技術') {
+          callback(null, {name: notebookName, guid: notebookGuid});
+        } else {
+          console.log(notebookName + 'だよ');
+          callback(null, {name: null, guid: notebookGuid});
+        }
+      }, function (err, results) {
+        if (err) {throw new Error(err);}
+        // guidでfilterを作る
+        var notebookNameObjs = results;
+        async.mapSeries(notebookNameObjs, function (notebookNameObj, callback) {
+          if (notebookNameObj.name) {
+            var filter = new Evernote.NoteFilter();
+            filter.notebookGuid = notebookNameObj.guid;
+            callback(null, {filter: filter});
+          } else {
+            callback(null, {filter: null});
+          }
+        }, function (err, results) {
+          // filterテーブル
+          console.log(results);
+        });
+      });
+    });
     noteStore.findNotesMetadata(oauthAccessToken, noteFilter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
         if (err) {
             console.log(err);
@@ -61,7 +97,7 @@ app.get('/manager', function (req, res) {
             noteText = enml.PlainTextOfENML(note.content, note.resources);
             noteUpdate = note.updated + '';
             noteCreated = note.created + '';
-            console.log(note);
+            //console.log(note);
 
             //evernote更新日付でディレクトリを作る
             fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
