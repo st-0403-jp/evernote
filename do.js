@@ -46,7 +46,7 @@ app.get('/manager', function (req, res) {
     });
     var pageSize = 100;
 
-    var p = new Promise(function (resolve, reject) {
+    var filterP = new Promise(function (resolve, reject) {
       noteStore.listNotebooks(oauthAccessToken, function (err, notebooks) {
         if (err) {
           console.log(err);
@@ -72,7 +72,7 @@ app.get('/manager', function (req, res) {
       });
       return this;
     });
-    p.then(function (results) {
+    filterP.then(function (results) {
       console.log(results);
     });
     noteStore.findNotesMetadata(oauthAccessToken, noteFilter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
