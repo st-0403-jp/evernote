@@ -57,7 +57,7 @@ app.get('/manager', function (req, res) {
           var notebookGuid = notebook.guid;
           var notebookName = notebook.name;
 
-          // ブログにアップするノートブックのみにする
+          // ブログにアップするノートブックを絞り込む
           if (notebookName === 'ラーメン' || notebookName === '技術') {
             var filter = new Evernote.NoteFilter();
             filter.notebookGuid = notebookGuid;
@@ -67,7 +67,29 @@ app.get('/manager', function (req, res) {
           }
         }, function (err, results) {
           if (err) {throw new Error(err);}
-            resolve(results);
+          var filters = results;
+          var filterNotes = [];
+          async.mapSeries(filters, function (filter, callback) {
+            if (filter == null) {
+              callback(null, null);
+              return;
+            }
+            noteStore.findNotesMetadata(oauthAccessToken, filter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
+              filterNotes.push(notesData);
+              callback(null, notesData);
+            });
+          }, function (err, results) {
+            // noteDataを返す
+            /*
+            var notesData = [];
+            async.mapSeries(results, function (data, callback) {
+              if 
+            }, function () {
+
+            });
+            */
+            resolve({notesData: filterNotes, notebookLength: results.length});
+          });
         });
       });
       return this;
