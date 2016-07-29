@@ -80,14 +80,6 @@ app.get('/manager', function (req, res) {
             });
           }, function (err, results) {
             // noteDataを返す
-            /*
-            var notesData = [];
-            async.mapSeries(results, function (data, callback) {
-              if 
-            }, function () {
-
-            });
-            */
             resolve({notesData: filterNotes, notebookLength: results.length});
           });
         });
@@ -96,7 +88,56 @@ app.get('/manager', function (req, res) {
     });
     filterP.then(function (results) {
       console.log(results);
+      async.mapSeries(results.notesData, function (noteData, callback) {
+        //noteデータの変数
+        var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
+        //noteの保存に使うデータの変数
+        var noteBuf, createdListBuf;
+        noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
+          if (err) {
+            throw new Error(err);
+          }
+          noteTitle = note.title;
+          noteHtml = enml.HTMLOfENML(note.content, note.resources);
+          noteText = enml.PlainTextOfENML(note.content, note.resources);
+          noteUpdate = note.updated + '';
+          noteCreated = note.created + '';
+          noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
+
+          callback(null, {
+            noteTitle: noteTitle,
+            noteHtml: noteHtml,
+            noteText: noteText,
+            noteUpdate: noteUpdate,
+            noteCreated: noteCreated,
+            noteBuf: noteBuf
+          });
+
+        });
+      }, function (err, results) {
+        //evernote更新日付でディレクトリを作る
+        fs.readdir(__dirname + '/src/tmpData/' + results.noteCreated, function (err, files) {
+          if (!err) {
+            // ディレクトリがあったら削除する
+            fs.unlinkSync(__dirname + '/src/tmpData/' + results.noteCreated + '/note.json');
+            fs.rmdirSync(__dirname + '/src/tmpData/' + results.noteCreated);
+          }
+          fs.mkdirSync(__dirname + '/src/tmpData/' + results.noteCreated, 0755);
+
+          fs.writeFile(__dirname + '/src/tmpData/' + results.noteCreated + '/note.json', results.noteBuf, function (err) {
+            if (err) {throw err;}
+          });
+        });
+
+        async.mapSeries(notesData.notes, function (noteData, next) {
+        }, function (err, results) {
+          if (err) {throw err;}
+          // 後々マッピングするためのディレクトリデータ
+            fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
+        });
+      });
     });
+    /*
     noteStore.findNotesMetadata(oauthAccessToken, noteFilter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
       if (err) {
           console.log(err);
@@ -140,6 +181,7 @@ app.get('/manager', function (req, res) {
           fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
       });
     });
+    */
   });
 });
 app.listen(3000);//172.20.10.4
