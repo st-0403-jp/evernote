@@ -75,12 +75,12 @@ app.get('/manager', function (req, res) {
               return;
             }
             noteStore.findNotesMetadata(oauthAccessToken, filter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
-              filterNotes.push(notesData);
+              filterNotes = filterNotes.concat(notesData.notes);
               callback(null, notesData);
             });
           }, function (err, results) {
             // noteDataを返す
-            resolve({notesData: filterNotes, notebookLength: results.length});
+            resolve({notesData: filterNotes, notebookAll: results});
           });
         });
       });
@@ -88,11 +88,14 @@ app.get('/manager', function (req, res) {
     });
     filterP.then(function (results) {
       console.log(results);
+      //noteデータの変数
+      var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
+      //noteの保存に使うデータの変数
+      var noteBuf, createdListBuf;
+      // noteを一つの配列にする
+      var notesData = [];
       async.mapSeries(results.notesData, function (noteData, callback) {
-        //noteデータの変数
-        var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
-        //noteの保存に使うデータの変数
-        var noteBuf, createdListBuf;
+        // noteを取得
         noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
           if (err) {
             throw new Error(err);
@@ -104,37 +107,28 @@ app.get('/manager', function (req, res) {
           noteCreated = note.created + '';
           noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
 
-          callback(null, {
-            noteTitle: noteTitle,
-            noteHtml: noteHtml,
-            noteText: noteText,
-            noteUpdate: noteUpdate,
-            noteCreated: noteCreated,
-            noteBuf: noteBuf
+          // evernote更新日付でディレクトリを作る
+          fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
+            if (!err) {
+              // ディレクトリがあったら削除する
+              fs.unlinkSync(__dirname + '/src/tmpData/' + noteCreated + '/note.json');
+              fs.rmdirSync(__dirname + '/src/tmpData/' + noteCreated);
+            }
+            fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
+
+            fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
+              if (err) {throw err;}
+            });
           });
 
+          callback(null, noteCreated);
+
         });
+
       }, function (err, results) {
-        //evernote更新日付でディレクトリを作る
-        fs.readdir(__dirname + '/src/tmpData/' + results.noteCreated, function (err, files) {
-          if (!err) {
-            // ディレクトリがあったら削除する
-            fs.unlinkSync(__dirname + '/src/tmpData/' + results.noteCreated + '/note.json');
-            fs.rmdirSync(__dirname + '/src/tmpData/' + results.noteCreated);
-          }
-          fs.mkdirSync(__dirname + '/src/tmpData/' + results.noteCreated, 0755);
-
-          fs.writeFile(__dirname + '/src/tmpData/' + results.noteCreated + '/note.json', results.noteBuf, function (err) {
-            if (err) {throw err;}
-          });
-        });
-
-        async.mapSeries(notesData.notes, function (noteData, next) {
-        }, function (err, results) {
-          if (err) {throw err;}
-          // 後々マッピングするためのディレクトリデータ
-            fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
-        });
+        if (err) {throw err;}
+        // 後々マッピングするためのディレクトリデータ
+        fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
       });
     });
     /*
@@ -184,4 +178,4 @@ app.get('/manager', function (req, res) {
     */
   });
 });
-app.listen(3000);//172.20.10.4
+app.listen(3000);
