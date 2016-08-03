@@ -4,12 +4,14 @@ var fs = require('fs');
 var regExp = function (string, option) {
   return new RegExp(string, option);
 };
-
 var gulp = require("gulp");
 var clean = require('gulp-clean');
 var server = require('gulp-webserver');
 var ejs = require('gulp-ejs');
 
+/**
+ * 必要データを生成
+ */
 var tmpData = [];
 var tmpDataList = JSON.parse(fs.readFileSync('src/tmpData/createdList.json', 'utf-8'));
 fs.readdir('src/tmpData', function (err, dirs) {
@@ -24,6 +26,23 @@ fs.readdir('src/tmpData', function (err, dirs) {
   });
 });
 
+var replaceHTML = function (htmlString) {
+  var result = htmlString;
+  //console.log(htmlString);
+  result = result.replace( /<html>/g, '');
+  result = result.replace( /<\/html>/g, '');
+  result = result.replace( /<head>/g, '');
+  result = result.replace( /<\/head>/g, '');
+  result = result.replace( /(<meta)(.*)("|¥b)(\/>)/, '');
+  result = result.replace( /^(<body)(.*)(>)/, '');
+  result = result.replace( /<\/body>/g, '');
+  console.log(result);
+  return result;
+};
+
+/**
+ * gulp.task
+ */
 gulp.task('clean', function () {
   gulp.src('prod/viewData/*').pipe(clean());
 });
@@ -33,9 +52,11 @@ gulp.task('ejs', ['clean'], function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
+      var targetText = tmpData[index].noteText;
       var expText = regExp('\n', 'g');
-      var brText = tmpData[index].noteText.replace(expText,'<br>');
-      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: {title: tmpData[index].noteTitle, text: brText}}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      var brText = targetText.replace(expText,'<br>');
+      var target = replaceHTML(brText);
+      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: {title: tmpData[index].noteTitle, text: target}}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
     });
     gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
   }, 100);
@@ -64,6 +85,10 @@ gulp.task('serve', ['ejs', 'css', 'js'], function () {
 
 gulp.task('prod', ['ejs', 'css', 'js'], function () {
   console.log('prod完了');
+});
+
+gulp.task('dataClean', function () {
+  gulp.src('src/tmpData/*').pipe(clean());
 });
 
 gulp.task('default', function () {

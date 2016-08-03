@@ -15,7 +15,7 @@
 </head>
 <body>
 <header>
-    <% include ../includes/common/header.ejs %>
+    <%- include('../includes/common/header.ejs', {page: 'detail'}) %>
 </header>
 <section id="container">
     <%- include('../includes/tmp/article.ejs', data) %>

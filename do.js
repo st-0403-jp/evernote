@@ -105,7 +105,7 @@ app.get('/manager', function (req, res) {
           noteText = enml.PlainTextOfENML(note.content, note.resources);
           noteUpdate = note.updated + '';
           noteCreated = note.created + '';
-          noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
+          noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteHtml}, null, ''));
 
           // evernote更新日付でディレクトリを作る
           fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
