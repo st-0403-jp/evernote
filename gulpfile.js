@@ -25,18 +25,19 @@ fs.readdir('src/tmpData', function (err, dirs) {
     tmpData.push(JSON.parse(fs.readFileSync('src/tmpData/' + jsonDir + '/note.json', 'utf-8')));
   });
 });
-
+/**
+ * evernoteで生成されてしまうhtml, head, bodyを削除, 改行コードはbrタグへ
+ */
 var replaceHTML = function (htmlString) {
   var result = htmlString;
-  //console.log(htmlString);
+  result = result.replace( /\\n/g, '<br>');
   result = result.replace( /<html>/g, '');
   result = result.replace( /<\/html>/g, '');
   result = result.replace( /<head>/g, '');
   result = result.replace( /<\/head>/g, '');
-  result = result.replace( /(<meta)(.*)("|¥b)(\/>)/, '');
-  result = result.replace( /^(<body)(.*)(>)/, '');
+  result = result.replace( /<meta http-equiv="Content-Type" content="text\/html; charset=UTF-8"\/>/g, '');
+  result = result.replace( /<body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">/, '');
   result = result.replace( /<\/body>/g, '');
-  console.log(result);
   return result;
 };
 
@@ -52,13 +53,11 @@ gulp.task('ejs', ['clean'], function () {
     tmpDataList.createdList.filter(function (createdDate) {
       return (fs.statSync('src/tmpData/' + createdDate).isDirectory());
     }).forEach(function (dir, index) {
-      var targetText = tmpData[index].noteText;
-      var expText = regExp('\n', 'g');
-      var brText = targetText.replace(expText,'<br>');
-      var target = replaceHTML(brText);
-      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: {title: tmpData[index].noteTitle, text: target}}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      // いらないタグを削除する
+      tmpData[index].noteText = replaceHTML(tmpData[index].noteText);
+      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index]}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
     });
-    gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
   }, 100);
 });
 
@@ -93,6 +92,6 @@ gulp.task('dataClean', function () {
 
 gulp.task('default', function () {
   setTimeout(function () {
-    console.log(tmpData);
+    console.log(typeof __dirname);
   }, 100);
 });
