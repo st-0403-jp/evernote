@@ -87,7 +87,6 @@ app.get('/manager', function (req, res) {
       return this;
     });
     filterP.then(function (results) {
-      console.log(results);
       //noteデータの変数
       var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
       //noteの保存に使うデータの変数
@@ -100,6 +99,7 @@ app.get('/manager', function (req, res) {
           if (err) {
             throw new Error(err);
           }
+          console.log(note);
           noteTitle = note.title;
           noteHtml = enml.HTMLOfENML(note.content, note.resources);
           noteText = enml.PlainTextOfENML(note.content, note.resources);
@@ -108,27 +108,27 @@ app.get('/manager', function (req, res) {
           noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteHtml}, null, ''));
 
           // evernote更新日付でディレクトリを作る
-          fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
+          fs.readdir(__dirname + '/src/tmpData/' + noteUpdate, function (err, files) {
             if (!err) {
               // ディレクトリがあったら削除する
-              fs.unlinkSync(__dirname + '/src/tmpData/' + noteCreated + '/note.json');
-              fs.rmdirSync(__dirname + '/src/tmpData/' + noteCreated);
+              fs.unlinkSync(__dirname + '/src/tmpData/' + noteUpdate + '/note.json');
+              fs.rmdirSync(__dirname + '/src/tmpData/' + noteUpdate);
             }
-            fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
+            fs.mkdirSync(__dirname + '/src/tmpData/' + noteUpdate, 0755);
 
-            fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
+            fs.writeFile(__dirname + '/src/tmpData/' + noteUpdate + '/note.json', noteBuf, function (err) {
               if (err) {throw err;}
             });
           });
 
-          callback(null, noteCreated);
+          callback(null, noteUpdate);
 
         });
 
       }, function (err, results) {
         if (err) {throw err;}
         // 後々マッピングするためのディレクトリデータ
-        fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
+        fs.writeFileSync(__dirname + '/src/tmpData/updateList.json', new Buffer(JSON.stringify({'updateList': results}, null, '')));
       });
     });
     /*

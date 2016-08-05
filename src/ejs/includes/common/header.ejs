@@ -1,10 +1,11 @@
 <%
+    var headerTitle = 'さささWeblog';
     if (page === 'top') {
 %>
-<h1>Take a break <span>~My blog~</span></h1>
+<h1><%= headerTitle %> <span>〜Web技術、ラーメン、etc...〜</span></h1>
 <% } %>
 <%
     if (page === 'detail') {
 %>
-<p>Take a break</p>
+<p><%= headerTitle %></p>
 <% } %>

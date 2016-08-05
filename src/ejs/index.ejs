@@ -21,14 +21,11 @@
     <article>
         <ul class="top-article">
             <%
-            data.sort(function (a, b) {
-                return b.update - a.update; 
-            });
             data.forEach(function (noteData) {
                 var upDate = new Date(Number(noteData.update)).toDateString();
             %>
             <li>
-                <a href="viewData/<%= noteData.created %>" target="_blank">
+                <a href="viewData/<%= noteData.update %>" target="_blank">
                     <dl class="contents-item">
                         <dt>
                             <h2><%= noteData.noteTitle %></h2>
@@ -47,7 +44,7 @@
     </article>
     <div class="dummy_article"></div>
     <aside>
-        <div><%- include('includes/common/intro.ejs')%></div>
+        <div><%- include('includes/common/aside.ejs')%></div>
     </aside>
 </section>
 <footer>
