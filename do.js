@@ -141,11 +141,14 @@ app.get('/manager', function (req, res) {
             });
           });
 
-          callback(null, {update: noteUpdate, resources: noteResources});
+          callback(null, noteUpdate);
 
         });
 
       }, function (err, results) {
+        // 後々マッピングするためのディレクトリデータ
+        fs.writeFileSync(__dirname + '/src/tmpData/updateList.json', new Buffer(JSON.stringify({'updateList': results}, null, '')));
+        /*
         async.mapSeries(results, function (noteResult, callback) {
           var noteUpdate = noteResult.update;
           var resources = noteResult.resources;
@@ -157,6 +160,7 @@ app.get('/manager', function (req, res) {
           // 後々マッピングするためのディレクトリデータ
           fs.writeFileSync(__dirname + '/src/tmpData/updateList.json', new Buffer(JSON.stringify({'updateList': results}, null, '')));
         });
+        */
       });
     });
     /*

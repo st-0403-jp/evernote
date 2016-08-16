@@ -17,14 +17,14 @@
 <header>
     <%- include('../includes/common/header.ejs', {page: 'detail'}) %>
 </header>
-<section id="container">
-    <article><%- include('../includes/tmp/article.ejs', data) %></article>
+<section id="detail">
+    <article class="detail-article"><%- include('../includes/tmp/article.ejs', data) %></article>
     <div class="dummy_article"></div>
     <aside><div><%- include('../includes/common/aside.ejs')%></div></aside>
 </section>
 <footer>
     <% include ../includes/common/footer.ejs %>
 </footer>
-<!-- <script type="text/javascript" src="js/center.js"></script> -->
+<script type="text/javascript" src="../../js/detail.js"></script>
 </body>
 </html>

@@ -112,6 +112,9 @@ footer {
 .copyrights {
     text-align: right;
 }
+.icon-list .fa {
+    font-size: 1.5em;
+}
 
 /* top */
 article ul.top-article {
@@ -165,7 +168,9 @@ article ul.top-article li:last-child {
 .detail-article {
     padding: 20px 40px;
 }
-
 .detail-article h2 {
     border-bottom: 2px solid #fff;
+}
+#detail .img {
+    text-align: center;
 }
