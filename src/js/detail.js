@@ -10,5 +10,5 @@ if (detailImg.length) {
         img.parentNode.classList.add('img');
     });
 } else {
-    detailImg.parentNode.classList.add('img');    
+    detailImg.parentNode.classList.add('img');
 }

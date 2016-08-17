@@ -1,4 +1,10 @@
+<% var upDate = new Date(Number(update)).toLocaleDateString(); %>
 <div>
+    <div class="pubDate">
+        <span class="icon-list">
+            <i class="fa fa-globe" aria-hidden="true"></i>
+        </span>
+        <%= upDate %>  更新しました</div>
     <h1><%= noteTitle %></h1>
     <div class="content-wrap"><%- noteText %></div>
 </div>
