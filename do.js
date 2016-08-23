@@ -93,8 +93,6 @@ app.get('/manager', function (req, res) {
       var noteTitle, noteHtml, noteText, noteUpdate, noteCreated, noteResources;
       //noteの保存に使うデータの変数
       var noteBuf, createdListBuf;
-      // noteを一つの配列にする
-      var notesData = [];
       async.mapSeries(results.notesData, function (noteData, callback) {
         // noteを取得
         noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
@@ -107,7 +105,6 @@ app.get('/manager', function (req, res) {
           noteUpdate = note.updated + '';
           noteCreated = note.created + '';
           noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteHtml}, null, ''));
-          noteResources = note.resources;
 
           if (note.resources) {
             /*
