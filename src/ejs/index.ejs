@@ -34,8 +34,11 @@
                 <a href="viewData/<%= noteData.update %>" target="_blank">
                     <dl class="contents-item">
                         <div class="icon-list">
+                            <% if (noteData.notebook === '技術') { %>
                             <i class="fa fa-globe" aria-hidden="true"></i>
+                            <% } else if (noteData.notebook === 'ラーメン') { %>
                             <i class="fa fa-cutlery" aria-hidden="true"></i>
+                            <% } %>
                         </div>
                         <dt>
                             <h2><%= noteData.noteTitle %></h2>

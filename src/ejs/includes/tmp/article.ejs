@@ -2,7 +2,11 @@
 <div>
     <div class="pubDate">
         <span class="icon-list">
+            <% if (notebook === '技術') { %>
             <i class="fa fa-globe" aria-hidden="true"></i>
+            <% } else if (notebook === 'ラーメン') { %>
+            <i class="fa fa-cutlery" aria-hidden="true"></i>
+            <% } %>
         </span>
         <%= upDate %>  更新しました</div>
     <h1><%= noteTitle %></h1>

@@ -12,6 +12,21 @@ var enml = require('enml-js');
 var express = require('express');
 var app = express();
 
+function createTmpData (dir, bufData) {
+  fs.readdir(__dirname + '/src/tmpData/' + dir, function (err, files) {
+    if (!err) {
+      // ディレクトリがあったら削除する
+      fs.unlinkSync(__dirname + '/src/tmpData/' + dir + '/note.json');
+      fs.rmdirSync(__dirname + '/src/tmpData/' + dir);
+    }
+    fs.mkdirSync(__dirname + '/src/tmpData/' + dir, 0755);
+
+    fs.writeFile(__dirname + '/src/tmpData/' + dir + '/note.json', bufData, function (err) {
+      if (err) {throw err;}
+    });
+  });
+};
+
 // view engine setup
 app.set('views', /*__dirname*/path.join(__dirname, 'manager'));
 app.set('view engine', 'ejs'); //ejsを変える
@@ -58,26 +73,26 @@ app.get('/manager', function (req, res) {
         async.mapSeries(notebooks, function (notebook, callback) {
           var notebookGuid = notebook.guid;
           var notebookName = notebook.name;
+          var filter = new Evernote.NoteFilter();
 
           // ブログにアップするノートブックを絞り込む
           if (notebookName === 'ラーメン' || notebookName === '技術') {
-            var filter = new Evernote.NoteFilter();
             filter.notebookGuid = notebookGuid;
-            callback(null, filter);
+            callback(null, {filter: filter, book: notebookName});
           } else {
             callback(null, null);
           }
         }, function (err, results) {
           if (err) {throw new Error(err);}
-          var filters = results;
           var filterNotes = [];
-          async.mapSeries(filters, function (filter, callback) {
-            if (filter == null) {
+          async.mapSeries(results, function (filterObj, callback) {
+            if (filterObj == null) {
               callback(null, null);
               return;
             }
-            noteStore.findNotesMetadata(oauthAccessToken, filter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
-              filterNotes = filterNotes.concat(notesData.notes);
+            // notebookに紐付いたnotesを取得する
+            noteStore.findNotesMetadata(oauthAccessToken, filterObj.filter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
+              filterNotes = filterNotes.concat({data: notesData.notes, book: filterObj.book});
               callback(null, notesData);
             });
           }, function (err, results) {
@@ -89,122 +104,89 @@ app.get('/manager', function (req, res) {
       return this;
     });
     filterP.then(function (results) {
-      //noteデータの変数
-      var noteTitle, noteHtml, noteText, noteUpdate, noteCreated, noteResources;
-      //noteの保存に使うデータの変数
-      var noteBuf, createdListBuf;
-      async.mapSeries(results.notesData, function (noteData, callback) {
-        // noteを取得
-        noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
-          if (err) {
-            throw new Error(err);
-          }
-          noteTitle = note.title;
-          noteHtml = enml.HTMLOfENML(note.content, note.resources);
-          noteText = enml.PlainTextOfENML(note.content, note.resources);
-          noteUpdate = note.updated + '';
-          noteCreated = note.created + '';
-          noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteHtml}, null, ''));
-
-          if (note.resources) {
-            /*
-            var resourceGuid = note.resources.guid;
-            userStore.getPublicUserInfo(username, function(err, userInfo) {
-              var imgUrl = userInfo.webApiUrlPrefix + "res/" + resourceGuid;
-            });
-            */
-            /*
-            noteStore.getResource(resourceGuid, true, false, true, false, function(err, resource) {
-              //console.log(resource);
-              var fileContent = resource.data.body;
-              var fileType = resource.mime;
-              var fileName = resource.attributes.sourceURL;
-              console.log(fileName);
-            });
-            */
-          }
-
-          // evernote更新日付でディレクトリを作る
-          fs.readdir(__dirname + '/src/tmpData/' + noteUpdate, function (err, files) {
-            if (!err) {
-              // ディレクトリがあったら削除する
-              fs.unlinkSync(__dirname + '/src/tmpData/' + noteUpdate + '/note.json');
-              fs.rmdirSync(__dirname + '/src/tmpData/' + noteUpdate);
+      /*
+        results = {
+          notesData: [
+            {
+              data: [],
+              book: string
+            },
+            {
+              data: [],
+              book: string
             }
-            fs.mkdirSync(__dirname + '/src/tmpData/' + noteUpdate, 0755);
-
-            fs.writeFile(__dirname + '/src/tmpData/' + noteUpdate + '/note.json', noteBuf, function (err) {
-              if (err) {throw err;}
-            });
+          ]
+        }
+      */
+      // noteデータの変数
+      var noteTitle, noteHtml, noteText, noteUpdate, noteCreated, noteResources, noteObj;
+      // noteの保存に使うデータの変数
+      var noteBuf, createdListBuf;
+      // 保存するnoteData配列
+      var saveDatas = [];
+      var saveDir;
+      async.mapSeries(results.notesData, function (noteData, outsideCallback) {
+        var noteDataArr = noteData.data;
+        var notebook = noteData.book;
+        // noteを取得
+        async.mapSeries(noteDataArr, function (note, insideCallback) {
+          noteStore.getNote(note.guid, true, true, true, true, function(err, targetNote) {
+            if (err) {
+              throw new Error(err);
+            }
+            noteTitle = targetNote.title;
+            noteHtml = enml.HTMLOfENML(targetNote.content, targetNote.resources);
+            noteText = enml.PlainTextOfENML(targetNote.content, targetNote.resources);
+            noteUpdate = targetNote.updated + '';
+            noteCreated = targetNote.created + '';
+            noteObj = {
+              created: noteCreated,
+              update: noteUpdate,
+              noteTitle: noteTitle,
+              noteText: noteHtml,
+              notebook: notebook
+            };
+            if (targetNote.resources) {
+              /*
+              var resourceGuid = note.resources.guid;
+              userStore.getPublicUserInfo(username, function(err, userInfo) {
+                var imgUrl = userInfo.webApiUrlPrefix + "res/" + resourceGuid;
+              });
+              */
+              /*
+              noteStore.getResource(resourceGuid, true, false, true, false, function(err, resource) {
+                //console.log(resource);
+                var fileContent = resource.data.body;
+                var fileType = resource.mime;
+                var fileName = resource.attributes.sourceURL;
+                console.log(fileName);
+              });
+              */
+            }
+            insideCallback(null, noteObj);
           });
-
-          callback(null, noteUpdate);
-
+        }, function (err, results) {
+          saveDatas = saveDatas.concat(results);
+          outsideCallback(null, null);
         });
 
       }, function (err, results) {
-        // 後々マッピングするためのディレクトリデータ
-        fs.writeFileSync(__dirname + '/src/tmpData/updateList.json', new Buffer(JSON.stringify({'updateList': results}, null, '')));
-        /*
-        async.mapSeries(results, function (noteResult, callback) {
-          var noteUpdate = noteResult.update;
-          var resources = noteResult.resources;
-          resources.forEach(function (resource) {
-            var jsonData = JSON.parse(fs.readFileSync(__dirname + '/src/tmpData/' + noteUpdate + '/note.json', 'utf-8'));
-          });
-          callback(null, noteResult.update);
+        console.log(saveDatas);
+        // results = [null, null]
+        async.mapSeries(saveDatas, function (saveData, callback) {
+          saveDir = saveData.update;
+          noteBuf = new Buffer(JSON.stringify(saveData, null, ''));
+          // evernote更新日付でディレクトリを作る
+          createTmpData(saveDir, noteBuf);
+
+          callback(null, saveDir);
         }, function (err, results) {
+          // results = [update0, update1, ...]
           // 後々マッピングするためのディレクトリデータ
           fs.writeFileSync(__dirname + '/src/tmpData/updateList.json', new Buffer(JSON.stringify({'updateList': results}, null, '')));
         });
-        */
       });
     });
-    /*
-    noteStore.findNotesMetadata(oauthAccessToken, noteFilter, 0, pageSize, notesMetadataResultSpec, function(err, notesData) {
-      if (err) {
-          console.log(err);
-          return false;
-      }
-      //noteデータの変数
-      var noteTitle, noteHtml, noteText, noteUpdate, noteCreated;
-      //noteの保存に使うデータの変数
-      var noteBuf, createdListBuf;
-
-      async.mapSeries(notesData.notes, function (noteData, next) {
-        noteStore.getNote(noteData.guid, true, true, true, true, function(err, note) {
-          //console.log(err || note);
-          noteTitle = note.title;
-          noteHtml = enml.HTMLOfENML(note.content, note.resources);
-          noteText = enml.PlainTextOfENML(note.content, note.resources);
-          noteUpdate = note.updated + '';
-          noteCreated = note.created + '';
-          //console.log(note);
-
-          //evernote更新日付でディレクトリを作る
-          fs.readdir(__dirname + '/src/tmpData/' + noteCreated, function (err, files) {
-            if (!err) {
-              // ディレクトリがあったら削除する
-              fs.unlinkSync(__dirname + '/src/tmpData/' + noteCreated + '/note.json');
-              fs.rmdirSync(__dirname + '/src/tmpData/' + noteCreated);
-            }
-            fs.mkdirSync(__dirname + '/src/tmpData/' + noteCreated, 0755);
-
-            noteBuf = new Buffer(JSON.stringify({created: noteCreated, update: noteUpdate, noteTitle: noteTitle, noteText: noteText}, null, ''));
-
-            fs.writeFile(__dirname + '/src/tmpData/' + noteCreated + '/note.json', noteBuf, function (err) {
-              if (err) {throw err;}
-              next(null, noteCreated);
-            });
-          });
-        });
-      }, function (err, results) {
-        if (err) {throw err;}
-        // 後々マッピングするためのディレクトリデータ
-          fs.writeFileSync(__dirname + '/src/tmpData/createdList.json', new Buffer(JSON.stringify({'createdList': results}, null, '')));
-      });
-    });
-    */
   });
 });
 app.listen(3000);
