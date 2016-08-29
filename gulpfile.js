@@ -70,7 +70,7 @@ gulp.task('ejs', ['clean'], function () {
     }).forEach(function (dir, index) {
       // いらないタグを削除する
       tmpData[index].noteText = replaceHTML(tmpData[index].noteText);
-      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index]}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
     });
     gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
   }, 100);
