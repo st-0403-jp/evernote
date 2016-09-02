@@ -1,41 +1,52 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="ja-JP">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Language" content="ja">
+<meta name="keyword" content="ラーメン, Web, 田中暁, SatoruTanaka, HTML, CSS, JavaScript, Evernote">
+<meta name="description" content="Webで豊かな生活を送ろうをテーマに、フロントエンドエンジニアのとしての技術を記事を残そうと思っております。Webサーバやアプリ事情など関連技術、大好きラーメン情報なども載せていきます。">
+<meta name="author" content="田中暁">
+<meta property="og:site_name" content="さささWeblog">
+<meta property="og:type" content="website">
+<!-- <meta property="og:title" content="田中暁(Satoru Tanaka)のブログ"> -->
+<meta property="og:url" content="http://satoru-t-0403.boo.jp/myblog/">
+<meta property="og:description" content="Webで豊かな生活を送ろうをテーマに、フロントエンドエンジニアの技術をメインに記事を残そうと思っております。Webサーバやアプリ事情など関連技術、大好きラーメン情報などお役に立つ情報を載せていきます。よろしくお願いします。">
+<meta property="og:image" content="http://satoru-t-0403.boo.jp/myblog/img/me_02.jpg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&effect=3d-float" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="lib/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="lib/sanitize.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
-<!-- <script type="text/javascript" src="lib/handlebars.min.js"></script> -->
 <script type="text/javascript" src="js/global.js"></script>
-<!-- <script type="text/javascript" src="js/common.hb.js"></script> -->
-<!-- <script type="text/javascript" src="js/common.doXhr.js"></script> -->
-<!-- <script type="text/javascript" src="js/page.js"></script> -->
-<title>BLOG_SatoruTanaka</title>
+<title>さささWeblog</title>
 </head>
 <body>
 <header>
-    <% include includes/common/header.ejs %>
+    <%- include('includes/common/header.ejs', {page: 'top'}) %>
 </header>
-<section id="container">
+<section id="top">
     <article>
         <ul class="top-article">
             <%
-            data.sort(function (a, b) {
-                return b.update - a.update; 
-            });
             data.forEach(function (noteData) {
-                var upDate = new Date(Number(noteData.update)).toLocaleString();
+                var upDate = new Date(Number(noteData.update)).toDateString();
             %>
             <li>
-                <a href="viewData/<%= noteData.created %>" target="_blank">
+                <a href="viewData/<%= noteData.update %>" target="_blank">
                     <dl class="contents-item">
+                        <div class="icon-list">
+                            <% if (noteData.notebook === '技術') { %>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <% } else if (noteData.notebook === 'ラーメン') { %>
+                            <i class="fa fa-cutlery" aria-hidden="true"></i>
+                            <% } %>
+                        </div>
                         <dt>
                             <h2><%= noteData.noteTitle %></h2>
                         </dt>
                         <dd>
-                            <p><%- upDate %></p>
+                            <%- noteData.noteText%>
                         </dd>
+                        <div class="pubDate"><i class="fa fa-upload" aria-hidden="true"></i>  <%- upDate %></div>
                     </dl>
                 </a>
             </li>
@@ -45,11 +56,15 @@
         </ul>
     </article>
     <div class="dummy_article"></div>
-    <aside></aside>
+    <aside>
+        <div><%- include('includes/common/aside.ejs')%></div>
+    </aside>
 </section>
 <footer>
     <% include includes/common/footer.ejs %>
 </footer>
-<!-- <script type="text/javascript" src="js/center.js"></script> -->
+<script>
+    common.top();
+</script>
 </body>
 </html>

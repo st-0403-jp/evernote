@@ -1,1 +1,11 @@
-<h1>Take a break <span>~My blog~</span></h1>
+<%
+    var headerTitle = 'さささWeblog';
+    if (page === 'top') {
+%>
+<h1 class="font-effect-3d-float"><a href="/"><%= headerTitle %> <span>--- Web、ラーメン、Web... ---</span></a></h1>
+<% } %>
+<%
+    if (page === 'detail') {
+%>
+<p class="font-effect-3d-float"><a href="/"><%= headerTitle %></a></p>
+<% } %>
