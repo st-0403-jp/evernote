@@ -73,7 +73,7 @@ gulp.task('ejs', ['clean'], function () {
       gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
     });
     gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
-  }, 100);
+  }, 1000);
 });
 
 gulp.task('css', function () {
