@@ -65,7 +65,7 @@ app.get('/manager', function (req, res) {
         includeTitle: true
     });
     var username = 'sato252011';
-    var pageSize = 10;
+    var pageSize = 100;
 
     var filterP = new Promise(function (resolve, reject) {
       noteStore.listNotebooks(function (err, notebooks) {
