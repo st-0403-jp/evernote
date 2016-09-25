@@ -53,6 +53,11 @@ var replaceHTML = function (htmlString) {
   result = result.replace( /<meta http-equiv="Content-Type" content="text\/html; charset=UTF-8"\/>/g, '');
   result = result.replace( /<body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">/, '');
   result = result.replace( /<\/body>/g, '');
+  // font-familyにダブルクオートが入るとstyleが効かなくなるのでシングルに置き換える
+  result = result.replace(/\&quot\;/g, '\'');
+  var result2 = result.match(/font-family\:\s.+?\;/g);
+  if (result2) { result2 = result2.join('').replace(/\"/g, '\''); }
+  result = result.replace(/font-family\:\s.+?\;/g, result2);
   return result;
 };
 
