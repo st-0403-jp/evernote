@@ -166,7 +166,7 @@ article ul.top-article li a {
 }
 article ul.top-article li a:hover,
 article ul.top-article li a:active {
-    box-shadow: 1px 1px 30px 1px #ff69B4;
+    box-shadow: 1px 1px 30px 1px #ddd;
 }
 article ul.top-article li:last-child {
     margin-bottom: 20px;
@@ -177,7 +177,7 @@ article ul.top-article li:last-child {
     height: 300px;
     padding: 40px 48px;
     border-radius: 5px;
-    box-shadow: 1px 1px 3px 1px #ff69B4;
+    box-shadow: 1px 1px 3px 1px #ddd;
     overflow: hidden;
     position: relative;
 }

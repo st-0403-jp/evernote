@@ -91,7 +91,7 @@ gulp.task('js', function () {
   .pipe(gulp.dest('prod/js'));
 });
 
-gulp.task('serve', ['ejs', 'css', 'js'], function () {
+gulp.task('serve', function () {
   gulp.watch(['src/ejs/*.ejs', 'src/ejs/includes/common/*.ejs', 'src/ejs/includes/tmp/*.ejs', 'src/ejs/view/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['ejs', 'css', 'js']);
   gulp.src('prod')
     .pipe(server({
