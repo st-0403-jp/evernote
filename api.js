@@ -11,7 +11,7 @@ var Evernote = require('evernote').Evernote;
 var client = new Evernote.Client({
   consumerKey: 'sato252011-6631',//'sato252011-7217',
   consumerSecret: 'f0e91859ed625462',//'52dba2f462408a5d',
-  sandbox: true // Optional (default: true)
+  sandbox: false // Optional (default: true)
 });
 
 module.exports = (function () {
@@ -30,25 +30,10 @@ module.exports = (function () {
         console.log(err);
         return false;
       }
-      //セットパラメータ
-      /*
-      console.log(oauthToken);
-      console.log(oauthTokenSecret);
-      console.log(results);
-      */
-      this.oauthToken = oauthToken;
-      this.oauthTokenSecret = oauthTokenSecret;
+      MY_OAUTH_TOKEN = oauthToken;
+      MY_OAUTH_TOKEN_SECRET = oauthTokenSecret;
       //evernoteと連携する
       res.redirect(client.getAuthorizeUrl(oauthToken));
-    });
-  };
-
-  method.access = function (oauthToken, oauthTokenSecret, oauthVerifier) {
-    client.getAccessToken(oauthToken, oauthTokenSecret, oauthVerifier, function(error, oauthAccessToken, oauthAccessTokenSecret, results) {
-      // store 'oauthAccessToken' somewhere
-      console.log(oauthAccessToken);
-      console.log(oauthAccessTokenSecret);
-      console.log(results);
     });
   };
 

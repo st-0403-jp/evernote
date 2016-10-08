@@ -53,6 +53,11 @@ var replaceHTML = function (htmlString) {
   result = result.replace( /<meta http-equiv="Content-Type" content="text\/html; charset=UTF-8"\/>/g, '');
   result = result.replace( /<body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">/, '');
   result = result.replace( /<\/body>/g, '');
+  // font-familyにダブルクオートが入るとstyleが効かなくなるのでシングルに置き換える
+  result = result.replace(/\&quot\;/g, '\'');
+  var result2 = result.match(/font-family\:\s.+?\;/g);
+  if (result2) { result2 = result2.join('').replace(/\"/g, '\''); }
+  result = result.replace(/font-family\:\s.+?\;/g, result2);
   return result;
 };
 
@@ -70,10 +75,10 @@ gulp.task('ejs', ['clean'], function () {
     }).forEach(function (dir, index) {
       // いらないタグを削除する
       tmpData[index].noteText = replaceHTML(tmpData[index].noteText);
-      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index]}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir));
+      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
     });
     gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
-  }, 100);
+  }, 1000);
 });
 
 gulp.task('css', function () {
@@ -86,7 +91,7 @@ gulp.task('js', function () {
   .pipe(gulp.dest('prod/js'));
 });
 
-gulp.task('serve', ['ejs', 'css', 'js'], function () {
+gulp.task('serve', function () {
   gulp.watch(['src/ejs/*.ejs', 'src/ejs/includes/common/*.ejs', 'src/ejs/includes/tmp/*.ejs', 'src/ejs/view/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['ejs', 'css', 'js']);
   gulp.src('prod')
     .pipe(server({
