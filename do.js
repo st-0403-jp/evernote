@@ -38,24 +38,28 @@ app.get('/manager', function (req, res) {
   res.render('index', {noteTitle: 'マネージャー', body: '管理画面'});
   res.send();
   var oauthParam = [];
-  var oauth_verifier;
+  var oauthToken, oauth_verifier;
   oauthParam = req.url.split('&');
   oauthParam.forEach(function (data) {
+    if (data.indexOf('oauth_token') > -1) {
+      oauthToken = data.split('=')[1];
+    }
     if (data.indexOf('oauth_verifier') > -1) {
       oauth_verifier = data.split('=')[1];
     }
   });
-  api.client.getAccessToken(oauthToken, oauthTokenSecret, oauth_verifier, function(err, oauthAccessToken, oauthAccessTokenSecret, results) {
+  api.client.getAccessToken(oauthToken, MY_OAUTH_TOKEN_SECRET, oauth_verifier, function(err, oauthAccessToken, oauthAccessTokenSecret, results) {
     // store 'oauthAccessToken' somewhere
     if (err) {
       console.log(err);
-      return false;
+      return;
     }
-    
-    var clientAccess = new Evernote.Client({token: oauthAccessToken});
+
+    var clientAccess = new Evernote.Client({token: oauthAccessToken, sandbox: false});
     
     var noteStore = clientAccess.getNoteStore();
     var userStore = clientAccess.getUserStore();
+
     var noteFilter = new Evernote.NoteFilter();
     var notesMetadataResultSpec = new Evernote.NotesMetadataResultSpec({
         includeTitle: true
@@ -64,7 +68,7 @@ app.get('/manager', function (req, res) {
     var pageSize = 100;
 
     var filterP = new Promise(function (resolve, reject) {
-      noteStore.listNotebooks(oauthAccessToken, function (err, notebooks) {
+      noteStore.listNotebooks(function (err, notebooks) {
         if (err) {
           console.log(err);
           return;
