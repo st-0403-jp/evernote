@@ -20,14 +20,18 @@
 <title>さささWeblog</title>
 </head>
 <body>
+    <%
+    var pageData = {page: 'top'};
+    var articleData = data;
+    %>
 <header>
-    <%- include('includes/common/header.ejs', {page: 'top'}) %>
+    <%- include('includes/common/header.ejs', pageData) %>
 </header>
 <section id="top">
     <article>
         <ul class="top-article">
             <%
-            data.forEach(function (noteData) {
+            articleData.forEach(function (noteData) {
                 var upDate = new Date(Number(noteData.update)).toDateString();
                 var firstText = noteData.noteText.split(/(<\/div>)/)[0] + '</div>';
             %>
@@ -58,7 +62,7 @@
     </article>
     <div class="dummy_article"></div>
     <aside>
-        <div><%- include('includes/common/aside.ejs')%></div>
+        <div><%- include('includes/common/aside.ejs', pageData)%></div>
     </aside>
 </section>
 <footer>
