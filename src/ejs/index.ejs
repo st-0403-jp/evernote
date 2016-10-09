@@ -29,6 +29,7 @@
             <%
             data.forEach(function (noteData) {
                 var upDate = new Date(Number(noteData.update)).toDateString();
+                var firstText = noteData.noteText.split(/(<\/div>)/)[0] + '</div>';
             %>
             <li>
                 <a href="viewData/<%= noteData.update %>" target="_blank">
@@ -44,7 +45,7 @@
                             <h2><%= noteData.noteTitle %></h2>
                         </dt>
                         <dd>
-                            <%- noteData.noteText%>
+                            <%- firstText %>
                         </dd>
                         <div class="pubDate"><i class="fa fa-upload" aria-hidden="true"></i>  <%- upDate %></div>
                     </dl>
