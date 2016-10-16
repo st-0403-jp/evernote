@@ -219,3 +219,9 @@ article ul.top-article li:last-child {
     margin-right: 10px;
     vertical-align: middle;
 }
+
+/* a8 */
+.a8-link_banner {
+    text-align: center;
+    padding: 20px 0;
+}
