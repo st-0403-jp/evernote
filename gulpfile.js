@@ -13,33 +13,44 @@ var ejs = require('gulp-ejs');
 /**
  * 必要データを生成
  */
-var tmpData = [];
-fs.readdir('src/tmpData', function (err, dirs) {
-  if (err) {
-    return false;
-  }
-  // tmpData
-  async.mapSeries(dirs, function (dir, callback) {
-    if (!fs.statSync('src/tmpData/' + dir).isDirectory()) {
-      callback(null, '');
-      return;
-    }
-    var jsonData = JSON.parse(fs.readFileSync('src/tmpData/' + dir + '/note.json', 'utf-8'));
-    callback(null, jsonData);
-  }, function (err, jsonDatas) {
-    jsonDatas.filter(function (data) {
-      return data;
-    }).sort(function (a, b) {
-      return b.update - a.update;
-    }).forEach(function (jsonData) {
-      tmpData.push(jsonData);
+var createTmpData = function () {
+  return new Promise(function (resolve) {
+    var tmpData = [];
+    fs.readdir('src/tmpData', function (err, dirs) {
+      if (err) {
+        return false;
+      }
+      // tmpData
+      async.mapSeries(dirs, function (dir, callback) {
+        if (!fs.statSync('src/tmpData/' + dir).isDirectory()) {
+          callback(null, '');
+          return;
+        }
+        var jsonData = JSON.parse(fs.readFileSync('src/tmpData/' + dir + '/note.json', 'utf-8'));
+        callback(null, jsonData);
+      }, function (err, jsonDatas) {
+        jsonDatas.filter(function (data) {
+          return data;
+        }).sort(function (a, b) {
+          return b.update - a.update;
+        }).forEach(function (jsonData) {
+          tmpData.push(jsonData);
+        });
+        resolve(tmpData);
+      });
     });
   });
-});
-var tmpDataList = JSON.parse(fs.readFileSync('src/tmpData/updateList.json', 'utf-8'));
-tmpDataList.updateList.sort(function (a, b) {
-  return b - a;
-});
+};
+var createTmpDataList = function () {
+  return new Promise(function (resolve) {
+    var tmpDataList = JSON.parse(fs.readFileSync('src/tmpData/updateList.json', 'utf-8'));
+    tmpDataList.updateList.sort(function (a, b) {
+      return b - a;
+    });
+    resolve(tmpDataList);
+  });
+};
+
 /**
  * evernoteで生成されてしまうhtml, head, bodyを削除, 改行コードはbrタグへ
  */
@@ -68,17 +79,23 @@ gulp.task('clean', function () {
   gulp.src('prod/viewData/*').pipe(clean());
 });
 
-gulp.task('ejs', ['clean'], function () {
-  return setTimeout(function () {
-    tmpDataList.updateList.filter(function (update) {
-      return (fs.statSync('src/tmpData/' + update).isDirectory());
-    }).forEach(function (dir, index) {
-      // いらないタグを削除する
-      tmpData[index].noteText = replaceHTML(tmpData[index].noteText);
-      gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
-    });
-    gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
-  }, 1000);
+gulp.task('ejs', ['view'], function () {
+  console.log('ejs完了');
+});
+
+gulp.task('view', function () {
+  return createTmpDataList().then(function (tmpDataList) {
+    createTmpData().then(function (tmpData) {
+      tmpDataList.updateList.filter(function (update) {
+        return (fs.statSync('src/tmpData/' + update).isDirectory());
+      }).forEach(function (dir, index) {
+        // いらないタグを削除する
+        tmpData[index].noteText = replaceHTML(tmpData[index].noteText);
+        gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
+      });
+      gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
+      });
+  });
 });
 
 gulp.task('css', function () {
@@ -92,7 +109,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('serve', function () {
-  gulp.watch(['src/ejs/*.ejs', 'src/ejs/includes/common/*.ejs', 'src/ejs/includes/tmp/*.ejs', 'src/ejs/view/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['prod']);
+  //gulp.watch(['src/ejs/*.ejs', 'src/ejs/includes/common/*.ejs', 'src/ejs/includes/tmp/*.ejs', 'src/ejs/view/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['prod']);
   gulp.src('prod')
     .pipe(server({
       host: '0.0.0.0',
