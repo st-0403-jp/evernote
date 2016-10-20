@@ -88,10 +88,17 @@ gulp.task('view', function () {
     createTmpData().then(function (tmpData) {
       tmpDataList.updateList.filter(function (update) {
         return (fs.statSync('src/tmpData/' + update).isDirectory());
-      }).forEach(function (dir, index) {
+      }).forEach(function (dir, index, dirs) {
+        var beforeDir, afterDir;
         // いらないタグを削除する
         tmpData[index].noteText = replaceHTML(tmpData[index].noteText);
-        gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
+        if (index !== 0) {
+           beforeDir = dirs[index - 1];
+        }
+        if (index !== dirs.length - 1) {
+          afterDir = dirs[index + 1];
+        }
+        gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir, beforeDir: beforeDir, afterDir: afterDir}, {ext: '.html'})).pipe(gulp.dest('prod/viewData/' + dir + '/'));
       });
       gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest('prod'));
       });

@@ -33,12 +33,35 @@
     <%
     var pageData = {page: 'detail'};
     var articleData = data;
+    var nextArticle = beforeDir;
+    var prevArticle = afterDir;
     %>
 <header>
     <%- include('../includes/common/header.ejs', pageData) %>
 </header>
 <section id="detail">
-    <article class="detail-article"><%- include('../includes/tmp/article.ejs', articleData) %></article>
+    <article class="detail-article">
+        <%- include('../includes/tmp/article.ejs', articleData) %>
+        <nav id="paging">
+            <ul>
+                <li>
+                    <% if (prevArticle) { %>
+                    <a class="paging-prev" href="../<%= prevArticle %>/">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                    </a>
+                    <% } %>
+                </li>
+                <li><a href="/blog">TOP</a></li>
+                <li>
+                    <% if (nextArticle) { %>
+                    <a class="paging-next" href="../<%= nextArticle %>/">
+                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    </a>
+                    <% } %>
+                </li>
+            </ul>
+        </nav>
+    </article>
     <div class="dummy_article"></div>
     <aside><%- include('../includes/common/aside.ejs', pageData)%></aside>
 </section>
