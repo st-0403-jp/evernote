@@ -109,7 +109,10 @@ gulp.task('js', function () {
 });
 
 gulp.task('serve', function () {
-  //gulp.watch(['src/ejs/*.ejs', 'src/ejs/includes/common/*.ejs', 'src/ejs/includes/tmp/*.ejs', 'src/ejs/view/*.ejs', 'src/css/*.css', 'src/js/*.js'], ['prod']);
+  // globで書き直し
+  gulp.watch(['src/ejs/*.ejs', 'src/ejs/includes/common/*.ejs', 'src/ejs/includes/tmp/*.ejs', 'src/ejs/view/*.ejs'], ['ejs']);
+  gulp.watch(['src/css/*.css'], ['css']);
+  gulp.watch(['src/js/*.js'], ['js']);
   gulp.src('prod')
     .pipe(server({
       host: '0.0.0.0',
