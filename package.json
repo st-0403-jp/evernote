@@ -14,6 +14,9 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-ejs": "^2.1.1",
+    "gulp-pleeease": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
     "gulp-webserver": "^0.9.1",
     "handlebars-json": "^1.0.0",
     "request": "^2.72.0"
