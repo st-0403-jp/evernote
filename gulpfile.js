@@ -51,6 +51,14 @@ var pass = (buildCheck()) ? {
 }
 
 /**
+ * meta
+ */
+var metaData = {
+  keyword: '',
+  description: 'Webで豊かな生活を送ろうをテーマに、フロントエンドエンジニアのとしての技術を記事を残そうと思っております。Webサーバやアプリ事情など関連技術、大好きラーメン情報なども載せていきます。'
+};
+
+/**
  * 必要データを生成
  */
 var createTmpData = function () {
@@ -142,9 +150,22 @@ gulp.task('view', function () {
         if (index !== dirs.length - 1) {
           afterDir = dirs[index + 1];
         }
-        gulp.src('src/ejs/view/index.ejs').pipe(ejs({data: tmpData[index], directory: dir, beforeDir: beforeDir, afterDir: afterDir}, {ext: '.html'})).pipe(gulp.dest(pass.view + '/' + dir + '/'));
+        gulp.src('src/ejs/view/index.ejs')
+          .pipe(ejs({
+            data: tmpData[index],
+            directory: dir,
+            beforeDir: beforeDir,
+            afterDir: afterDir,
+            meta: metaData
+          }, {ext: '.html'}))
+          .pipe(gulp.dest(pass.view + '/' + dir + '/'));
       });
-      gulp.src('src/ejs/index.ejs').pipe(ejs({data: tmpData}, {ext: '.html'})).pipe(gulp.dest(pass.top));
+      gulp.src('src/ejs/index.ejs')
+        .pipe(ejs({
+          data: tmpData,
+          meta: metaData
+        }, {ext: '.html'}))
+        .pipe(gulp.dest(pass.top));
       });
   });
 });
@@ -235,6 +256,6 @@ gulp.task('test', function () {
 
 gulp.task('default', function () {
   setTimeout(function () {
-    console.log(command);
+    console.log(metaData);
   }, 100);
 });

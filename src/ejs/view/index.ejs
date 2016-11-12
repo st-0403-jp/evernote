@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="keyword" content="ラーメン, Web, 田中暁, SatoruTanaka, HTML, CSS, JavaScript, Evernote">
-<meta name="description" content="Webで豊かな生活を送ろうをテーマに、フロントエンドエンジニアとしての技術を記事を残そうと思っております。Webサーバやアプリ事情など関連技術、大好きラーメン情報なども載せていきます。">
+<meta name="keyword" content="ラーメン, Web, 田中暁, SatoruTanaka, HTML, CSS, JavaScript, Evernote, <%= data.noteTitle %>">
+<meta name="description" content="<%= (data.noteText.split(/(<\/div>)/)[0].replace(/<.+>/, '')) ? (data.noteText.split(/(<\/div>)/)[0].replace(/<.+>/, '')) : meta.description %>">
 <meta name="author" content="田中暁">
 <meta property="og:site_name" content="さささWeblog">
 <meta property="og:type" content="article">
 <!-- <meta property="og:title" content="田中暁(Satoru Tanaka)のブログ"> -->
 <meta property="og:url" content="http://satoru-t-0403.boo.jp/myblog/<%= directory %>/">
-<meta property="og:description" content="Webで豊かな生活を送ろうをテーマに、フロントエンドエンジニアの技術をメインに記事を残そうと思っております。Webサーバやアプリ事情など関連技術、大好きラーメン情報などお役に立つ情報を載せていきます。よろしくお願いします。">
+<meta property="og:description" content="<%= meta.description %>">
 <meta property="og:image" content="http://satoru-t-0403.boo.jp/myblog/img/me_02.jpg"><!-- このページのイメージ -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Montserrat&effect=3d-float" rel="stylesheet">
