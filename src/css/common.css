@@ -156,11 +156,6 @@ nav {
 .icon-list .fa {
     font-size: 1.5em;
 }
-/*
-.h-none:hover {
-    visibility: hidden;
-}
-*/
 
 /* top */
 #top h2 {
@@ -233,6 +228,9 @@ article ul.top-article li:last-child {
 .detail-article .icon-list {
     margin-right: 10px;
     vertical-align: middle;
+}
+.detail-article .content-wrap img {
+    box-shadow: 2px 2px 10px 0px #222;
 }
 
 /* nav */
