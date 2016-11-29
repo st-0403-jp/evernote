@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja-JP">
+<script>
+// ドメイン変更に伴い、前ドメインのアクセスの場合リダイレクト
+(function () {
+    var host = location.host || location.hostname;
+    var path = location.pathname || '/blog';
+    if (!host) { return; }
+    if (host === 'satoru-t-0403.boo.jp') {
+        alert('***！リダイレクト***\n\n申し訳ありません。\nhttp://satoru-t-0403.boo.jp はただいま機能していないので正しいページに遷移します');
+        location.href = 'http://sssatoru-t.info' + path;
+        return;
+    } else {
+        return;
+    }
+})();
+</script>
 <head>
 <meta charset="utf-8">
 <meta name="keyword" content="ラーメン, Web, 田中暁, SatoruTanaka, HTML, CSS, JavaScript, Evernote">
