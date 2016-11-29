@@ -1,5 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja-JP">
+<script>
+// ドメイン変更に伴い、前ドメインのアクセスの場合リダイレクト
+(function () {
+    var host = location.host || location.hostname;
+    var path = location.pathname || '/blog';
+    if (!host) { return; }
+    if (host === 'satoru-t-0403.boo.jp') {
+        alert('***！リダイレクト***\n\n申し訳ありません。\nhttp://satoru-t-0403.boo.jp はただいま機能していないので正しいページに遷移します');
+        location.href = 'http://sssatoru-t.info' + path;
+        return;
+    } else {
+        return;
+    }
+})();
+</script>
 <head>
 <meta charset="utf-8">
 <meta name="keyword" content="ラーメン, Web, 田中暁, SatoruTanaka, HTML, CSS, JavaScript, Evernote, <%= data.noteTitle %>">
@@ -8,9 +23,9 @@
 <meta property="og:site_name" content="さささWeblog">
 <meta property="og:type" content="article">
 <!-- <meta property="og:title" content="田中暁(Satoru Tanaka)のブログ"> -->
-<meta property="og:url" content="http://satoru-t-0403.boo.jp/myblog/<%= directory %>/">
+<meta property="og:url" content="http://sssatoru-t.info/blog/<%= directory %>/">
 <meta property="og:description" content="<%= meta.description %>">
-<meta property="og:image" content="http://satoru-t-0403.boo.jp/myblog/img/me_02.jpg"><!-- このページのイメージ -->
+<meta property="og:image" content="http://sssatoru-t.info/blog/img/me_02.jpg"><!-- このページのイメージ -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Montserrat&effect=3d-float" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../../lib/font-awesome.css">
