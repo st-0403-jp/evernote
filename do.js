@@ -24,7 +24,7 @@ function createTmpData (dir, bufData) {
       if (err) {throw err;}
     });
   });
-};
+}
 
 // view engine setup
 app.set('views', /*__dirname*/path.join(__dirname, 'manager'));

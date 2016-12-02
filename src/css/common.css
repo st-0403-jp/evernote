@@ -14,7 +14,6 @@ img {
     max-width: 100%;
     max-height: 600px;
 }
-
 h1 {
     font-size: 4em;
 }
@@ -54,7 +53,10 @@ footer a:hover {
     opacity: 0.3;
     background-color: rgba(0, 0, 0, 0.3);
 }
-
+ul {
+    list-style-type: none;
+}
+/* module */
 header {
     padding: 20px 12px;
     color: #fff;
@@ -62,7 +64,6 @@ header {
 header p {
     font-weight: bold;
 }
-
 section {
     width: 100%;
     margin: 0 auto;
@@ -71,38 +72,34 @@ section {
     display: -webkit-box;
     display: -mos-box;
 }
-
 article {
     width: 70%;
 }
-
 aside {
     width: 29%;
     background-color: #fff;
     box-shadow: 2px 1px 2px 0px #222;
+    font-size: 0.8em;
 }
 aside h3 {
     font-weight: normal;
     letter-spacing: 0.05em;
     border-bottom: 2px solid #c0c0c0;
     padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
 }
-
-.intro, .famous, .category {
+.intro, .famous, .category, .news {
     padding: 20px 10px;
 }
 .intro > p {
-    margin-top: 10px;
     overflow: hidden;
-    font-size: 0.8em;
     letter-spacing: 0.05em;
 }
 .intro > p span a:link {
     background-color: rgba(255, 105, 180, 0.2);
 }
-.intro > p span a:hover,
-.intro > p span a:visited,
-.intro > p span a:active {
+.intro > p span a:hover, .intro > p span a:visited, .intro > p span a:active {
     text-decoration: underline;
 }
 .intro > p > span {
@@ -113,6 +110,15 @@ aside h3 {
 .intro img {
     width: 25%;
     float: right;
+}
+.news dl {
+    margin-bottom: 5px;
+}
+.news dl dt {
+    display: inline-block;
+    border-left: 2px solid #c0c0c0;
+    border-right: 2px solid #c0c0c0;
+    padding: 0 5px;
 }
 
 .dummy_article {
