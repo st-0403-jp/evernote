@@ -1,10 +1,6 @@
 /*api.js*/
 var request = require('request');
-var fs = require('fs');
-//自分便利モジュール
-//var util = require('./util');
-//コンソールに綺麗に出力する
-//var show = require('./showConsole');
+
 //evernote
 var Evernote = require('evernote').Evernote;
 
