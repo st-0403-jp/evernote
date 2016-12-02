@@ -1,14 +1,11 @@
 /*api.js*/
 var request = require('request');
+var token = require('token');
 
 //evernote
 var Evernote = require('evernote').Evernote;
 
-var client = new Evernote.Client({
-  consumerKey: 'sato252011-6631',//'sato252011-7217',
-  consumerSecret: 'f0e91859ed625462',//'52dba2f462408a5d',
-  sandbox: false // Optional (default: true)
-});
+var client = new Evernote.Client(token);
 
 module.exports = (function () {
   var method = {};
