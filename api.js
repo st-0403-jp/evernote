@@ -7,6 +7,7 @@ var Evernote = require('evernote').Evernote;
 
 console.log(token);
 var client = new Evernote.Client(token);
+var callbackIp = 'http://127.0.0.1:3000/manager/';// 'http://192.168.179.2:3000/manager/''http://10.17.209.13:3000/manager/'
 
 module.exports = (function () {
   var method = {};
@@ -18,7 +19,7 @@ module.exports = (function () {
   method.oauthTokenSecret = null;
 
   method.init = function (req, res) {
-    client.getRequestToken(/*'http://192.168.179.2:3000/manager/'*/'http://10.17.209.13:3000/manager/', function(err, oauthToken, oauthTokenSecret, results) {
+    client.getRequestToken(callbackIp, function(err, oauthToken, oauthTokenSecret, results) {
       // store tokens in the session
       if (err) {
         console.log(err);
