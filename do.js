@@ -4,7 +4,6 @@ var fs = require('fs');
 var async = require('async');
 
 var api = require('./api');
-var util = require('./util');
 
 var Evernote = require('evernote').Evernote;
 var enml = require('enml-js');

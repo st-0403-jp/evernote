@@ -1,6 +1,6 @@
 /*api.js*/
 var request = require('request');
-var token = require('token');
+var token = require('./token');
 
 //evernote
 var Evernote = require('evernote').Evernote;
