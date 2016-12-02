@@ -208,6 +208,7 @@ article ul.top-article li:last-child {
     position: absolute;
     bottom: 40px;
     right: 48px;
+    font-size: 1.5em;
 }
 
 /* detail */
