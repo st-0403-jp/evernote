@@ -46,11 +46,10 @@
 </head>
 <body>
     <%
-    var pageData = {page: 'top'};
-    var articleData = data;
+    var articleData = article;
     %>
 <header>
-    <%- include('includes/common/header.ejs', pageData) %>
+    <%- include('includes/common/header.ejs', {page: page}) %>
 </header>
 <section id="top">
     <article>
@@ -94,7 +93,7 @@
     </article>
     <div class="dummy_article"></div>
     <aside>
-        <%- include('includes/common/aside.ejs', pageData)%>
+        <%- include('includes/common/aside.ejs', {page: page, news: news})%>
     </aside>
 </section>
 <footer>

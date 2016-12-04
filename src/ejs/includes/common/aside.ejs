@@ -29,16 +29,12 @@
 </div>
 <div class="news">
   <h3>お知らせ</h3>
+  <%
+  news.dl.forEach(function (dlData) {
+  %>
   <dl>
-    <dt>2016.12.02</dt>
-    <dd>あああああああ機能追加あああああああ機能追加</dd>
+    <dt><%= dlData.dt %></dt>
+    <dd><%= dlData.dd %></dd>
   </dl>
-  <dl>
-    <dt>2016.12.02</dt>
-    <dd>テスト機能追加テスト</dd>
-  </dl>
-  <dl>
-    <dt>2016.12.02</dt>
-    <dd>あああああああ機能追加</dd>
-  </dl>
+  <% }); %>
 </div>

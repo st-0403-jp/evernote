@@ -59,6 +59,26 @@ var metaData = {
 };
 
 /**
+ * news
+ */
+var newsData = {
+  dl: [
+    {
+      dt: '2016.12.02',
+      dd: 'あああああああ機能追加あああああああ機能追加'
+    },
+    {
+      dt: '2016.12.01',
+      dd: 'テストテスト'
+    },
+    {
+      dt: '2016.11.15',
+      dd: 'テストテストテスト'
+    }
+  ]
+};
+
+/**
  * 必要データを生成
  */
 var createTmpData = function () {
@@ -152,18 +172,22 @@ gulp.task('view', function () {
         }
         gulp.src('src/ejs/view/index.ejs')
           .pipe(ejs({
-            data: tmpData[index],
+            page: 'detail',
+            article: tmpData[index],
             directory: dir,
             beforeDir: beforeDir,
             afterDir: afterDir,
-            meta: metaData
+            meta: metaData,
+            news: newsData
           }, {ext: '.html'}))
           .pipe(gulp.dest(pass.view + '/' + dir + '/'));
       });
       gulp.src('src/ejs/index.ejs')
         .pipe(ejs({
-          data: tmpData,
-          meta: metaData
+          page: 'top',
+          article: tmpData,
+          meta: metaData,
+          news: newsData
         }, {ext: '.html'}))
         .pipe(gulp.dest(pass.top));
       });
