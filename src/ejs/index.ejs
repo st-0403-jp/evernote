@@ -61,6 +61,11 @@
                 var dd = '0' + upDate.getDate();
                     dd = dd.slice(-2);
                 var yyyymmdd = yyyy + mm + dd;
+                var h = '0' + upDate.getHours();
+                    h = h.slice(-2) + ':';
+                var mi = '0' + upDate.getMinutes();
+                    mi = mi.slice(-2);
+                var time = h + mi;
                 var firstText = noteData.noteText.split(/(<\/div>)/)[0] + '</div>';
             %>
             <li>
@@ -79,7 +84,7 @@
                         <dd>
                             <%- firstText %>
                         </dd>
-                        <div class="pubDate"><i class="fa fa-upload" aria-hidden="true"></i>　<%= yyyymmdd %></div>
+                        <div class="pubDate"><i class="fa fa-upload" aria-hidden="true"></i>　<%= yyyymmdd %> <%= time %></div>
                     </dl>
                 </a>
             </li>

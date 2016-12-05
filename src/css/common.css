@@ -215,7 +215,7 @@ article ul.top-article li:last-child {
     position: absolute;
     bottom: 40px;
     right: 48px;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 /* detail */
@@ -231,7 +231,7 @@ article ul.top-article li:last-child {
 .detail-article .pubDate {
     display: inline-block;
     background-color: #fff;
-    padding: 5px;
+    padding: 10px;
 }
 .detail-article .icon-list {
     margin-right: 10px;
