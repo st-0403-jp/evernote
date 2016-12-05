@@ -60,6 +60,9 @@ var metaData = {
 
 /**
  * news
+ * 5件まで
+ * @font
+ * clock-o, upload, globe, cutlery
  */
 var newsData = {
   dl: [
