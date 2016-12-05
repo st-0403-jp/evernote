@@ -45,9 +45,6 @@
 <title>さささWeblog</title>
 </head>
 <body>
-    <%
-    var articleData = article;
-    %>
 <header>
     <%- include('includes/common/header.ejs', {page: page}) %>
 </header>
@@ -55,7 +52,7 @@
     <article>
         <ul class="top-article">
             <%
-            articleData.forEach(function (noteData) {
+            article.forEach(function (noteData) {
                 var upDate = new Date(Number(noteData.update));
                 var yyyy = upDate.getFullYear() + '/';
                 var mm = upDate.getMonth() + 1;

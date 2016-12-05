@@ -151,11 +151,7 @@ gulp.task('clean', function () {
   }
 });
 
-gulp.task('ejs', ['view'], function () {
-  console.log('ejs完了');
-});
-
-gulp.task('view', function () {
+gulp.task('ejs', function () {
   return createTmpDataList().then(function (tmpDataList) {
     createTmpData().then(function (tmpData) {
       tmpDataList.updateList.filter(function (update) {
