@@ -1,18 +1,13 @@
 /*api.js*/
 var request = require('request');
-var fs = require('fs');
-//自分便利モジュール
-//var util = require('./util');
-//コンソールに綺麗に出力する
-//var show = require('./showConsole');
+var token = require('./token');
+
 //evernote
 var Evernote = require('evernote').Evernote;
 
-var client = new Evernote.Client({
-  consumerKey: 'sato252011-6631',//'sato252011-7217',
-  consumerSecret: 'f0e91859ed625462',//'52dba2f462408a5d',
-  sandbox: false // Optional (default: true)
-});
+console.log(token);
+var client = new Evernote.Client(token);
+var callbackIp = 'http://127.0.0.1:3000/manager/';// 'http://192.168.179.2:3000/manager/''http://10.17.209.13:3000/manager/'
 
 module.exports = (function () {
   var method = {};
@@ -24,7 +19,7 @@ module.exports = (function () {
   method.oauthTokenSecret = null;
 
   method.init = function (req, res) {
-    client.getRequestToken('http://192.168.179.2:3000/manager/'/*'http://10.17.208.153:3000/manager/'*/, function(err, oauthToken, oauthTokenSecret, results) {
+    client.getRequestToken(callbackIp, function(err, oauthToken, oauthTokenSecret, results) {
       // store tokens in the session
       if (err) {
         console.log(err);

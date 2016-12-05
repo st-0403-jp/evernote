@@ -1,4 +1,12 @@
-<% var upDate = new Date(Number(update)).toLocaleDateString(); %>
+<% 
+var upDate = new Date(Number(update));
+var yyyy = upDate.getFullYear() + '';
+var mm = upDate.getMonth() + 1;
+    mm = '0' + mm;
+    mm = mm.slice(-2);
+var dd = '0' + upDate.getDate();
+    dd = dd.slice(-2);
+%>
 <div>
     <div class="pubDate">
         <span class="icon-list">
@@ -8,7 +16,7 @@
             <i class="fa fa-cutlery" aria-hidden="true"></i>
             <% } %>
         </span>
-        <%= upDate %>  更新しました</div>
+        <%= yyyy %>年<%= mm %>月<%= dd %>日 更新しました</div>
     <h1><%= noteTitle %></h1>
     <div class="content-wrap"><%- noteText %></div>
 </div>

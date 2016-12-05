@@ -4,7 +4,6 @@ var fs = require('fs');
 var async = require('async');
 
 var api = require('./api');
-var util = require('./util');
 
 var Evernote = require('evernote').Evernote;
 var enml = require('enml-js');
@@ -25,7 +24,7 @@ function createTmpData (dir, bufData) {
       if (err) {throw err;}
     });
   });
-};
+}
 
 // view engine setup
 app.set('views', /*__dirname*/path.join(__dirname, 'manager'));

@@ -59,6 +59,21 @@ var metaData = {
 };
 
 /**
+ * news
+ * 5件まで
+ * @font
+ * clock-o, upload, globe, cutlery
+ */
+var newsData = {
+  dl: [
+    {
+      dt: '2016.12.05',
+      dd: 'お知らせ機能を追加しました。<br>更新日付を見やすくしました。'
+    }
+  ]
+};
+
+/**
  * 必要データを生成
  */
 var createTmpData = function () {
@@ -123,19 +138,15 @@ var replaceHTML = function (htmlString) {
 /**
  * gulp.task
  */
-gulp.task('clean', function () {
-  if (buildCheck()) {
-    gulp.src('prod/*').pipe(clean());
-  } else {
-    gulp.src('mock/*').pipe(clean());
-  }
+gulp.task('cleanMock', function () {
+  gulp.src('mock/*').pipe(clean());
 });
 
-gulp.task('ejs', ['view'], function () {
-  console.log('ejs完了');
+gulp.task('cleanProd', function () {
+  gulp.src('prod/*').pipe(clean());
 });
 
-gulp.task('view', function () {
+gulp.task('ejs', function () {
   return createTmpDataList().then(function (tmpDataList) {
     createTmpData().then(function (tmpData) {
       tmpDataList.updateList.filter(function (update) {
@@ -152,18 +163,22 @@ gulp.task('view', function () {
         }
         gulp.src('src/ejs/view/index.ejs')
           .pipe(ejs({
-            data: tmpData[index],
+            page: 'detail',
+            article: tmpData[index],
             directory: dir,
             beforeDir: beforeDir,
             afterDir: afterDir,
-            meta: metaData
+            meta: metaData,
+            news: newsData
           }, {ext: '.html'}))
           .pipe(gulp.dest(pass.view + '/' + dir + '/'));
       });
       gulp.src('src/ejs/index.ejs')
         .pipe(ejs({
-          data: tmpData,
-          meta: metaData
+          page: 'top',
+          article: tmpData,
+          meta: metaData,
+          news: newsData
         }, {ext: '.html'}))
         .pipe(gulp.dest(pass.top));
       });

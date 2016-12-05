@@ -14,9 +14,9 @@
     <p><span>「Webで豊かな生活を(Web is life)」のために日々を綴ります。フロントエンドエンジニアの技術をメインに関連技術、ラーメンが大好きなので、ラーメン日記。<br>まだまだ半人前ですがよろしくお願いします。<br>こちら<a href="http://sssatoru-t.info/portfolio/" target="_blank">ポートフォリオ</a>です。</span><img src="../../img/me_02.jpg" alt="田中暁の画像"></p>
 </div>
 <div class="a8-link_banner">
-  <a href="https://px.a8.net/svt/ejp?a8mat=2NV3C0+8XIUQ+50+2HK0TD" target="_blank">
-  <img border="0" width="350" height="80" alt="" src="https://www23.a8.net/svt/bgt?aid=161014176015&wid=001&eno=01&mid=s00000000018015042000&mc=1"></a>
-  <img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=2NV3C0+8XIUQ+50+2HK0TD" alt="">
+  <a href="https://px.a8.net/svt/ejp?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" target="_blank">
+  <img border="0" width="234" height="60" alt="" src="https://www27.a8.net/svt/bgt?aid=161205899863&wid=001&eno=01&mid=s00000012042013005000&mc=1"></a>
+  <img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" alt="">
 </div>
 <% } %>
 <div class="famous">
@@ -26,4 +26,15 @@
 <div class="category">
   <h3>カテゴリー別</h3>
   <p>準備中</p>
+</div>
+<div class="news">
+  <h3>お知らせ</h3>
+  <%
+  news.dl.forEach(function (dlData) {
+  %>
+  <dl>
+    <dt><%= dlData.dt %></dt>
+    <dd><%- dlData.dd %></dd>
+  </dl>
+  <% }); %>
 </div>

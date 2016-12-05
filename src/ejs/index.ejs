@@ -45,19 +45,27 @@
 <title>さささWeblog</title>
 </head>
 <body>
-    <%
-    var pageData = {page: 'top'};
-    var articleData = data;
-    %>
 <header>
-    <%- include('includes/common/header.ejs', pageData) %>
+    <%- include('includes/common/header.ejs', {page: page}) %>
 </header>
 <section id="top">
     <article>
         <ul class="top-article">
             <%
-            articleData.forEach(function (noteData) {
-                var upDate = new Date(Number(noteData.update)).toDateString();
+            article.forEach(function (noteData) {
+                var upDate = new Date(Number(noteData.update));
+                var yyyy = upDate.getFullYear() + '/';
+                var mm = upDate.getMonth() + 1;
+                    mm = '0' + mm;
+                    mm = mm.slice(-2) + '/';
+                var dd = '0' + upDate.getDate();
+                    dd = dd.slice(-2);
+                var yyyymmdd = yyyy + mm + dd;
+                var h = '0' + upDate.getHours();
+                    h = h.slice(-2) + ':';
+                var mi = '0' + upDate.getMinutes();
+                    mi = mi.slice(-2);
+                var time = h + mi;
                 var firstText = noteData.noteText.split(/(<\/div>)/)[0] + '</div>';
             %>
             <li>
@@ -76,7 +84,7 @@
                         <dd>
                             <%- firstText %>
                         </dd>
-                        <div class="pubDate"><i class="fa fa-upload" aria-hidden="true"></i>  <%- upDate %></div>
+                        <div class="pubDate"><i class="fa fa-upload" aria-hidden="true"></i>　<%= yyyymmdd %> <%= time %></div>
                     </dl>
                 </a>
             </li>
@@ -87,7 +95,7 @@
     </article>
     <div class="dummy_article"></div>
     <aside>
-        <%- include('includes/common/aside.ejs', pageData)%>
+        <%- include('includes/common/aside.ejs', {page: page, news: news})%>
     </aside>
 </section>
 <footer>
