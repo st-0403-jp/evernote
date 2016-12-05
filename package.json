@@ -24,9 +24,10 @@
   "scripts": {
     "satoru": "echo \"さとリンリン\"",
     "manager": "node do.js",
-    "prestart": "gulp mock",
+    "prestart": "gulp cleanMock && gulp mock",
     "start": "gulp mockServe",
-    "build": "gulp prod && gulp prodServe",
+    "prebuild": "gulp cleanProd && gulp prod",
+    "build": "gulp prodServe",
     "all": "gulp mock & gulp prod"
   },
   "author": "",

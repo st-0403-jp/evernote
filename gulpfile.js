@@ -138,12 +138,12 @@ var replaceHTML = function (htmlString) {
 /**
  * gulp.task
  */
-gulp.task('clean', function () {
-  if (buildCheck()) {
-    gulp.src('prod/*').pipe(clean());
-  } else {
-    gulp.src('mock/*').pipe(clean());
-  }
+gulp.task('cleanMock', function () {
+  gulp.src('mock/*').pipe(clean());
+});
+
+gulp.task('cleanProd', function () {
+  gulp.src('prod/*').pipe(clean());
 });
 
 gulp.task('ejs', function () {
