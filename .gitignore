@@ -3,4 +3,4 @@ mock
 prod
 src/tmpData
 bower_components
-token.js
+token
