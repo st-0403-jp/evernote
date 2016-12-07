@@ -61,7 +61,7 @@ var metaData = {
 /**
  * news
  * 5件まで
- * @font
+ * @icon
  * clock-o, upload, globe, cutlery
  */
 var newsData = {
@@ -72,6 +72,16 @@ var newsData = {
     }
   ]
 };
+
+/**
+ * affiliate
+ * 5件くらい
+ * @tag { string }
+ */
+var affiliateData = [
+  '<a href="https://px.a8.net/svt/ejp?a8mat=2NV3C0+8XIUQ+50+2HNVPD" target="_blank"><img border="0" width="300" height="250" alt="" src="https://www24.a8.net/svt/bgt?aid=161014176015&wid=001&eno=01&mid=s00000000018015060000&mc=1"></a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=2NV3C0+8XIUQ+50+2HNVPD" alt="">',
+  '<a href="https://px.a8.net/svt/ejp?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" target="_blank"><img border="0" width="234" height="60" alt="" src="https://www27.a8.net/svt/bgt?aid=161205899863&wid=001&eno=01&mid=s00000012042013005000&mc=1"></a><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" alt="">'
+];
 
 /**
  * 必要データを生成
@@ -169,7 +179,8 @@ gulp.task('ejs', function () {
             beforeDir: beforeDir,
             afterDir: afterDir,
             meta: metaData,
-            news: newsData
+            news: newsData,
+            affiliate: affiliateData
           }, {ext: '.html'}))
           .pipe(gulp.dest(pass.view + '/' + dir + '/'));
       });
@@ -178,7 +189,8 @@ gulp.task('ejs', function () {
           page: 'top',
           article: tmpData,
           meta: metaData,
-          news: newsData
+          news: newsData,
+          affiliate: affiliateData
         }, {ext: '.html'}))
         .pipe(gulp.dest(pass.top));
       });
@@ -271,6 +283,6 @@ gulp.task('test', function () {
 
 gulp.task('default', function () {
   setTimeout(function () {
-    console.log(metaData);
+    console.log(affiliateData);
   }, 100);
 });
