@@ -4,3 +4,4 @@ prod
 src/tmpData
 bower_components
 token
+npm-debug.log
