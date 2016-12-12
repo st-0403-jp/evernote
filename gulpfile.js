@@ -79,9 +79,13 @@ var newsData = {
  * @tag { string }
  */
 var affiliateData = [
+  //ドメイン
   '<a href="https://px.a8.net/svt/ejp?a8mat=2NV3C0+8XIUQ+50+2HNVPD" target="_blank"><img border="0" width="300" height="250" alt="" src="https://www24.a8.net/svt/bgt?aid=161014176015&wid=001&eno=01&mid=s00000000018015060000&mc=1"></a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=2NV3C0+8XIUQ+50+2HNVPD" alt="">',
+  //ラピッドVPS
   '<a href="https://px.a8.net/svt/ejp?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" target="_blank"><img border="0" width="234" height="60" alt="" src="https://www27.a8.net/svt/bgt?aid=161205899863&wid=001&eno=01&mid=s00000012042013005000&mc=1"></a><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" alt="">',
+  //ライザップゴルフ
   '<a href="https://px.a8.net/svt/ejp?a8mat=2NZCQM+6PQ0DU+CW6+BEY0VL" target="_blank"><img border="0" width="300" height="250" alt="" src="https://www23.a8.net/svt/bgt?aid=161212990406&wid=001&eno=01&mid=s00000001671069023000&mc=1"></a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=2NZCQM+6PQ0DU+CW6+BEY0VL" alt="">',
+  //ライザップ
   '<a href="https://px.a8.net/svt/ejp?a8mat=2NZCQM+72TJOY+3D3Q+61C2P" target="_blank"><img border="0" width="300" height="120" alt="" src="https://www25.a8.net/svt/bgt?aid=161212990428&wid=001&eno=01&mid=s00000015695001014000&mc=1"></a><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=2NZCQM+72TJOY+3D3Q+61C2P" alt="">'
 ];
 
