@@ -17,7 +17,7 @@
 </script>
 <head>
 <meta charset="utf-8">
-<meta name="keyword" content="ラーメン, Web, 田中暁, SatoruTanaka, HTML, CSS, JavaScript, Evernote, <%= article.noteTitle %>">
+<meta name="keywords" content="<%= meta.keywords %>, <%= article.noteTitle %>">
 <meta name="description" content="<%= (article.noteText.split(/(<\/div>)/)[0].replace(/<.+>/, '')) ? (article.noteText.split(/(<\/div>)/)[0].replace(/<.+>/, '')) : meta.description %>">
 <meta name="author" content="田中暁">
 <meta property="og:site_name" content="さささWeblog">
@@ -76,7 +76,7 @@
         </nav>
     </article>
     <div class="dummy_article"></div>
-    <aside><%- include('../includes/common/aside.ejs', {page: page, news: news}) %></aside>
+    <aside><%- include('../includes/common/aside.ejs', {page: page, news: news, affiliate: affiliate}) %></aside>
 </section>
 <footer>
     <% include ../includes/common/footer.ejs %>
