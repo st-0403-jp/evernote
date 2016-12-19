@@ -27,6 +27,9 @@ h1 span {
     font-size: 0.3em;
 }
 a {
+    -webkit-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -moz-transition: all 0.2s;
     transition: all 0.2s;
 }
 a:link {
@@ -68,9 +71,10 @@ section {
     width: 100%;
     margin: 0 auto;
     padding: 0 12px;
-    display: box;
-    display: -webkit-box;
-    display: -mos-box;
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex;
 }
 article {
     width: 70%;
@@ -96,10 +100,10 @@ aside h3 {
     overflow: hidden;
     letter-spacing: 0.05em;
 }
-.intro > p span a:link {
+.intro a {
     background-color: rgba(255, 105, 180, 0.2);
 }
-.intro > p span a:hover, .intro > p span a:visited, .intro > p span a:active {
+.intro a:hover, .intro a:visited, .intro a:active {
     text-decoration: underline;
 }
 .intro > p > span {
