@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="さささWeblog">
 <meta property="og:type" content="article">
 <!-- <meta property="og:title" content="田中暁(Satoru Tanaka)のブログ"> -->
-<meta property="og:url" content="http://sssatoru-t.info/blog/<%= directory %>/">
+<meta property="og:url" content="http://sssatoru-t.info/blog/<%= article.update %>/">
 <meta property="og:description" content="<%= meta.description %>">
 <meta property="og:image" content="http://sssatoru-t.info/blog/img/me_02.jpg"><!-- このページのイメージ -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,10 +45,18 @@
 <title><%= article.noteTitle %>__さささWeblog</title>
 </head>
 <body>
-    <%
-    var nextArticle = beforeDir;
-    var prevArticle = afterDir;
-    %>
+<%
+var nextArticle = beforeDir;
+var prevArticle = afterDir;
+%>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.8&appId=1583642838612725";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <header>
     <%- include('../includes/common/header.ejs', {page: page}) %>
 </header>
