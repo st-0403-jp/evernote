@@ -33,7 +33,4 @@ module.exports = (function () {
   };
 
   return method;
-  //http://0.0.0.0:8808/?oauth_token=sato252011-7217.154FB5065A8.687474703A2F2F302E302E302E303A383830382F.E61D1D800224D2A670A505284AD7211C&oauth_verifier=A01C205F572D38ADF5AAF9A202FC1A43&sandbox_lnb=false
 })();
-
-//request.get(options, function (error, response, body) {
