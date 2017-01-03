@@ -78,8 +78,14 @@ app.get('/manager', function (req, res) {
           var notebookName = notebook.name;
           var filter = new Evernote.NoteFilter();
 
+          var filterNoteBooks = [
+          'ラーメン',
+          '技術',
+          'ブログ-マネジメント'
+          ];
+
           // ブログにアップするノートブックを絞り込む
-          if (notebookName === 'ラーメン' || notebookName === '技術') {
+          if (filterNoteBooks.indexOf(notebookName) !== -1) {
             filter.notebookGuid = notebookGuid;
             callback(null, {filter: filter, book: notebookName});
           } else {
