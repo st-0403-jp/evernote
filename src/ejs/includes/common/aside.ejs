@@ -1,28 +1,22 @@
-<% if (page === 'top') { %>
 <div class="intro">
     <h3>田中暁(Satoru Tanaka)</h3>
-    <p><span>「Webで豊かな生活を(Web is life)」のために日々をブログで綴ります。フロントエンドエンジニアの技術をメインに関連技術、ラーメンが大好きなので、ラーメンの感想。<br>まだまだ半人前ですがよろしくお願いします。こちら<a href="http://sssatoru-t.info/portfolio/" target="_blank">ポートフォリオ</a>です。</span><img src="img/me_02.jpg" alt="田中暁の画像"></p>
+    <p>
+      <span>「日々勉強。フロントエンドエンジニアの技術をメインに関連技術、ラーメンが大好きなので、ラーメンの感想。<br>まだまだ半人前ですがよろしくお願いします。こちら<a href="http://sssatoru-t.info/portfolio/" target="_blank">ポートフォリオ</a>です。</span>
+      <img src="/blog/img/me_02.jpg" alt="田中暁の画像">
+    </p>
+    <% if (page === 'top') { %>
     <div class="follow-btn-box">
       <div class="fb-follow" data-href="https://www.facebook.com/satoru.tanaka.9480" data-layout="button_count" data-size="small" data-show-faces="false"></div>
       <div class="tw-follow">
         <a href="https://twitter.com/sato272015" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @sato272015</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
     </div>
+    <% } %>
 </div>
 <div class="a8-link_banner">
   <%- affiliate[Math.floor(Math.random() * affiliate.length)] %>
   <!-- <a href="https://px.a8.net/svt/ejp?a8mat=2NV3C0+8XIUQ+50+2HNVPD" target="_blank"><img border="0" width="300" height="250" alt="" src="https://www24.a8.net/svt/bgt?aid=161014176015&wid=001&eno=01&mid=s00000000018015060000&mc=1"></a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=2NV3C0+8XIUQ+50+2HNVPD" alt=""> -->
 </div>
-<% } else if (page === 'detail') { %>
-<div class="intro">
-    <h3>田中暁(Satoru Tanaka)</h3>
-    <p><span>「Webで豊かな生活を(Web is life)」のために日々をブログで綴ります。フロントエンドエンジニアの技術をメインに関連技術、ラーメンが大好きなので、ラーメンの感想。<br>まだまだ半人前ですがよろしくお願いします。こちら<a href="http://sssatoru-t.info/portfolio/" target="_blank">ポートフォリオ</a>です。</span><img src="../../img/me_02.jpg" alt="田中暁の画像"></p>
-</div>
-<div class="a8-link_banner">
-  <%- affiliate[Math.floor(Math.random() * affiliate.length)] %>
-  <!-- <a href="https://px.a8.net/svt/ejp?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" target="_blank"><img border="0" width="234" height="60" alt="" src="https://www27.a8.net/svt/bgt?aid=161205899863&wid=001&eno=01&mid=s00000012042013005000&mc=1"></a><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=2NZ79N+E9T3UA+2KX0+25FF81" alt=""> -->
-</div>
-<% } %>
 <div class="famous">
   <h3>おすすめブログ</h3>
   <p>準備中</p>

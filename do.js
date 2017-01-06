@@ -81,7 +81,8 @@ app.get('/manager', function (req, res) {
           var filterNoteBooks = [
           'ラーメン',
           '技術',
-          'ブログ-マネジメント'
+          'ブログ-マネジメント',
+          'ブログ-その他'
           ];
 
           // ブログにアップするノートブックを絞り込む
