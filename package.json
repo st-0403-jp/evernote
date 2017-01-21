@@ -23,6 +23,7 @@
   },
   "scripts": {
     "satoru": "echo \"さとリンリン\"",
+    "premanager": "gulp dataClean",
     "manager": "node do.js",
     "prestart": "gulp cleanMock && gulp mock",
     "start": "gulp mockServe",
