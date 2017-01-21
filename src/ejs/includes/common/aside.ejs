@@ -1,8 +1,11 @@
+<%
+var resourcePath = "../../";
+%>
 <div class="intro">
     <h3>田中暁(Satoru Tanaka)</h3>
     <p>
       <span>「日々勉強。フロントエンドエンジニアの技術をメインに関連技術、ラーメンが大好きなので、ラーメンの感想。<br>まだまだ半人前ですがよろしくお願いします。こちら<a href="http://sssatoru-t.info/portfolio/" target="_blank">ポートフォリオ</a>です。</span>
-      <img src="/blog/img/me_02.jpg" alt="田中暁の画像">
+      <img src=<% if (page === 'top') { %>"img/me_02.jpg"<% } else { %>"<%= resourcePath %>img/me_02.jpg"<% } %> alt="田中暁の画像">
     </p>
     <% if (page === 'top') { %>
     <div class="follow-btn-box">
