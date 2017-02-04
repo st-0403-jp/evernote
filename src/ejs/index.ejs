@@ -108,7 +108,7 @@
     </aside>
 </section>
 <footer>
-    <% include includes/common/footer.ejs %>
+    <%- include('includes/common/footer.ejs', {toYear: toYear}) %>
 </footer>
 <script>
     common.top();

@@ -59,6 +59,11 @@ var metaData = {
 };
 
 /**
+ * copyrights year
+ */
+ var toYear = '2017';
+
+/**
  * news
  * 5件まで
  * @icon
@@ -194,7 +199,8 @@ gulp.task('ejs', function () {
             afterDir: afterDir,
             meta: metaData,
             news: newsData,
-            affiliate: affiliateData
+            affiliate: affiliateData,
+            toYear: toYear
           }, {ext: '.html'}))
           .pipe(gulp.dest(pass.view + '/' + dir + '/'));
       });
@@ -204,7 +210,8 @@ gulp.task('ejs', function () {
           article: tmpData,
           meta: metaData,
           news: newsData,
-          affiliate: affiliateData
+          affiliate: affiliateData,
+          toYear: toYear
         }, {ext: '.html'}))
         .pipe(gulp.dest(pass.top));
       });
