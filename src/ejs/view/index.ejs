@@ -86,7 +86,7 @@ var prevArticle = afterDir;
     <aside><%- include('../includes/common/aside.ejs', {page: page, news: news, affiliate: affiliate}) %></aside>
 </section>
 <footer>
-    <% include ../includes/common/footer.ejs %>
+    <%- include('../includes/common/footer.ejs', {toYear: toYear}) %>
 </footer>
 <script>
     common.detail();
