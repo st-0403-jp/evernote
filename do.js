@@ -28,7 +28,9 @@ function createTmpData (dir, bufData) {
 
 // view engine setup
 app.set('views', /*__dirname*/path.join(__dirname, 'manager'));
-app.set('view engine', 'ejs'); //ejsを変える
+app.set('view engine', 'ejs'); // ejsを使う
+//app.use(express.static(path.join(__dirname, 'manager/css')));
+//console.log(path.join(__dirname, 'manager/css'));
 
 app.get('/', function(req, res) {
   api.init(req, res);
