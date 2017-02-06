@@ -8,14 +8,116 @@
 <link rel="stylesheet" type="text/css" href="css/exe.css">
 </head>
 <body>
-<h1><%= noteTitle %></h1>
+<header>
+    <h1>example</h1>
+</header>
 <div id="container">
     <p><%- body %></p>
-<!--
-<h1>ラーメンデータ一覧</h1>
-<ul><li></li></ul>
--->
+    <div class="exe-1">
+        <h2>inline-block横並び</h2>
+        <nav>
+            <ul class="global-nav">
+                <li>top</li>
+                <li>about</li>
+                <li>news</li>
+                <li>service</li>
+                <li>contact</li>
+            </ul>
+        </nav>
+    </div>
+    <div class="exe-2">
+        <h2>inline-block横並び（隙間なし）</h2>
+        <dl>
+            <dt class="exe-2_1">【① liタグを一行でマークアップする】</dt>
+            <dd>
+                <nav>
+                    <ul class="global-nav">
+                        <li>top</li><li>about</li><li>news</li><li>service</li><li>contact</li>
+                    </ul>
+                </nav>
+            </dd>
+            <dt class="exe-2_2">【② liタグの閉じタグを省略する】</dt>
+            <dd>
+                <nav>
+                    <ul class="global-nav">
+                        <li>top
+                        <li>about
+                        <li>news
+                        <li>service
+                        <li>contact
+                    </ul>
+                </nav>
+            </dd>
+            <dt class="exe-2_3">【③ font-size: 0;で】</dt>
+            <dd>
+                <nav>
+                    <ul class="global-nav">
+                        <li>top</li>
+                        <li>about</li>
+                        <li>news</li>
+                        <li>service</li>
+                        <li>contact</li>
+                    </ul>
+                </nav>
+            </dd>
+            <dt class="exe-2_4">【④ letter-spacing: -1em;で】</dt>
+            <dd>
+                <nav>
+                    <ul class="global-nav">
+                        <li>top</li>
+                        <li>about</li>
+                        <li>news</li>
+                        <li>service</li>
+                        <li>contact</li>
+                    </ul>
+                </nav>
+            </dd>
+        </dl>
+    </div>
+    <div class="exe-3">
+        <h2>inline-block横並び（高さの違う要素）</h2>
+        <dl>
+            <dt>【inline-blockだときれいに揃う】</dt>
+            <dd>
+                <nav>
+                    <ul class="global-nav">
+                        <li>あああああああああああああああああああああああああああああああああああああああああああ</li>
+                        <li>いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい</li>
+                        <li>うううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう</li>
+                        <li>えええええええええええええええええええええええええ</li>
+                        <li>おおおおおおおおおお</li>
+                        <li>あああああああああああああああああああああああああああああああああああああああああああ</li>
+                        <li>いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい</li>
+                        <li>うううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう</li>
+                        <li>えええええええええええええええええええええええええ</li>
+                        <li>おおおおおおおおおお</li>
+                    </ul>
+                </nav>
+            </dd>
+            <dt class="exe-3_2">【！ floatでやった場合】</dt>
+            <dd>
+                <nav>
+                    <ul class="global-nav">
+                        <li>あああああああああああああああああああああああああああああああああああああああああああ</li>
+                        <li>いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい</li>
+                        <li>うううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう</li>
+                        <li>えええええええええええええええええええええええええ</li>
+                        <li>おおおおおおおおおお</li>
+                        <li>あああああああああああああああああああああああああああああああああああああああああああ</li>
+                        <li>いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい</li>
+                        <li>うううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう</li>
+                        <li>えええええええええええええええええええええええええ</li>
+                        <li>おおおおおおおおおお</li>
+                    </ul>
+                </nav>
+            </dd>
+        </dl>
+    </div>
 </div>
+<footer>
+    <small>&copy; 2017 SatoruTanaka</small>
+</footer>
 </body>
+<script type="text/javascript" src="js/exe.js"></script>
 </html>
 
