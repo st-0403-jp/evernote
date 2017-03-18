@@ -18,11 +18,14 @@ h2 {
     margin: 30px 0;
     color: #999;
 }
-
+dt {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0;
+}
 nav {
     background-color: #ccc;
 }
-
 nav .global-nav {
     width: 450px;
     margin: 0 auto;
@@ -39,13 +42,32 @@ nav .global-nav li {
     padding: 5px;
 }
 
-/* exe-2 */
-.exe-2 dt {
-    text-align: center;
-    font-weight: bold;
-    margin: 10px 0;
+/* exe-1 */
+.exe-1 .exe-1-1 {
+  text-align: center;
+  border: 1px solid #555;
+  font-size: 20px;
+}
+.exe-1 .block, .exe-1 .inline-block, .exe-1 .inline {
+  width: 200px;
+  height: 100px;
+  line-height: 100px;
+  background-color: #f53;
+  border: 1px solid #555;
+  margin: 10px auto;
+}
+.exe-1 .block {
+  display: block;
+}
+.exe-1 .inline-block {
+  display: inline-block;
+}
+.exe-1 .inline {
+  display: inline;
+  padding: 10px;
 }
 
+/* exe-2 */
 .exe-2 .exe-2_3 + dd .global-nav {
     font-size: 0;
 }
@@ -70,11 +92,6 @@ nav .global-nav li {
 .exe-3 nav .global-nav li {
     width: 15%;
     vertical-align: top;
-}
-.exe-3 dt {
-    text-align: center;
-    font-weight: bold;
-    margin: 10px 0;
 }
 
 .exe-3 .exe-3_2 + dd .global-nav {
