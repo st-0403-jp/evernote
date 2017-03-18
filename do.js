@@ -81,10 +81,10 @@ app.get('/manager', function (req, res) {
           var filter = new Evernote.NoteFilter();
 
           var filterNoteBooks = [
-          'ラーメン',
-          '技術',
-          'ブログ-マネジメント',
-          'ブログ-その他'
+          'ラーメン'
+          //'技術',
+          //'ブログ-マネジメント',
+          //'ブログ-その他'
           ];
 
           // ブログにアップするノートブックを絞り込む
