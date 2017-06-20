@@ -99,7 +99,9 @@ var affiliateData = [
   //ライザップゴルフ
   '<a href="https://px.a8.net/svt/ejp?a8mat=2NZCQM+6PQ0DU+CW6+BEY0VL" target="_blank"><img border="0" width="300" height="250" alt="" src="https://www23.a8.net/svt/bgt?aid=161212990406&wid=001&eno=01&mid=s00000001671069023000&mc=1"></a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=2NZCQM+6PQ0DU+CW6+BEY0VL" alt="">',
   //ライザップ
-  '<a href="https://px.a8.net/svt/ejp?a8mat=2NZCQM+72TJOY+3D3Q+61C2P" target="_blank"><img border="0" width="300" height="120" alt="" src="https://www25.a8.net/svt/bgt?aid=161212990428&wid=001&eno=01&mid=s00000015695001014000&mc=1"></a><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=2NZCQM+72TJOY+3D3Q+61C2P" alt="">'
+  '<a href="https://px.a8.net/svt/ejp?a8mat=2NZCQM+72TJOY+3D3Q+61C2P" target="_blank"><img border="0" width="300" height="120" alt="" src="https://www25.a8.net/svt/bgt?aid=161212990428&wid=001&eno=01&mid=s00000015695001014000&mc=1"></a><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=2NZCQM+72TJOY+3D3Q+61C2P" alt="">',
+  //GMOインターネット
+  '<a href="https://px.a8.net/svt/ejp?a8mat=2NVBXQ+FN831U+50+3IF6LD" target="_blank" rel="nofollow"><img border="0" width="250" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=161025326946&wid=001&eno=01&mid=s00000000018021234000&mc=1"></a><img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=2NVBXQ+FN831U+50+3IF6LD" alt="">'
 ];
 
 /**
