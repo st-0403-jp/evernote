@@ -15,6 +15,8 @@ var rename = require('gulp-rename');
 
 var command = process.argv[2];
 
+var version = 'v240';
+
 /**
  * buildかどうかチェックする
  */
