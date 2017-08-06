@@ -1,3 +1,34 @@
 @charset "utf-8";
 
+h1 {
+  font-size: 2em;
+}
 
+h1 > a > span {
+  display: block;
+}
+
+section {
+  display: block;
+}
+section > .dummy_article {
+  display: none;
+}
+section > article,
+section > aside {
+  width: 100%;
+}
+
+#top h2 {
+  font-size: 1em;
+  white-space: normal;
+}
+article ul.top-article li {
+  padding: 0;
+}
+.top-article dl.contents-item {
+  padding: 15px;
+}
+.top-article dl.contents-item dt {
+  height: auto;
+}
