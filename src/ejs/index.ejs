@@ -74,20 +74,11 @@
                 var mi = '0' + upDate.getMinutes();
                     mi = mi.slice(-2);
                 var time = h + mi;
-                var firstText = noteData.noteText.split(/(<\/div>)/)[0] + '</div>';
+                var firstText = noteData.noteText.split(/(<\/div>)/)[0].replace('<div>', '');
             %>
             <li>
                 <a href="viewData/<%= noteData.update %>">
                     <dl class="contents-item">
-                        <div class="icon-list">
-                            <% if (noteData.notebook === '技術') { %>
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                            <% } else if (noteData.notebook === 'ラーメン') { %>
-                            <i class="fa fa-cutlery" aria-hidden="true"></i>
-                            <% } else if (noteData.notebook === 'ブログ-マネジメント') { %>
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <% } %>
-                        </div>
                         <dt>
                             <h2><%= noteData.noteTitle %></h2>
                         </dt>

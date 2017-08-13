@@ -10,6 +10,7 @@ h1 > a > span {
 
 section {
   display: block;
+  padding: 0;
 }
 section > .dummy_article {
   display: none;
@@ -18,10 +19,22 @@ section > article,
 section > aside {
   width: 100%;
 }
+footer ul {
+  margin: 0;
+}
+footer ul li {
+  margin-top: 10px;
+}
+.copyrights {
+  margin-top: 10px;
+}
 
 #top h2 {
   font-size: 1em;
   white-space: normal;
+}
+article ul.top-article {
+  padding: 0 12px;
 }
 article ul.top-article li {
   padding: 0;
@@ -29,6 +42,42 @@ article ul.top-article li {
 .top-article dl.contents-item {
   padding: 15px;
 }
+.top-article dl.contents-item {
+  height: auto;
+}
 .top-article dl.contents-item dt {
   height: auto;
+}
+.top-article dl.contents-item dd {
+  height: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.top-article .pubDate {
+  margin-top: 10px;
+  position: static;
+}
+
+.detail-article {
+  padding: 0 12px;
+}
+.detail-article img {
+  max-height: 300px;
+}
+#paging {
+  font-size: 1.5em;
+}
+#paging .paging-prev::after {
+    content: 'PREV';
+}
+#paging .paging-next::before {
+    content: 'NEXT';
+}
+#paging .paging-prev:hover::after {
+    content: 'PREV';
+    opacity: 0.7;
+}
+#paging .paging-next:hover::before {
+    content: 'NEXT';
+    opacity: 0.7;
 }
