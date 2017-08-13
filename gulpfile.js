@@ -57,7 +57,7 @@ var pass = (buildCheck()) ? {
  */
 var metaData = {
   keywords: '田中暁, SatoruTanaka, tanaka satoru, ラーメン, ramen, Web, フロントエンド, front end engineer, HTML, html, CSS, css, FontAwesome, LESS, GoogleFonts, JavaScript, JS, js, Evernote, NodeJS, Node, GulpJS, gulp, EJS, bower, npm',
-  description: '東京のラーメンを食べ歩いているので、誰かのためになればと思い、ブログしています。正確には車なので歩いてはいないw深夜に行くことも多いのでその辺りの参考になれば狙い通りですwよろしくお願いしますmm'
+  description: '東京のラーメンを食べ歩いているので、誰かのためになればと思い、ブログにしました。正確には車なので歩いてはいないw深夜に行くことも多いのでその辺りの参考になればとwよろしくお願いしますmm'
 };
 
 /**

@@ -212,8 +212,6 @@ article ul.top-article li:last-child {
     height: 100px;
     overflow: hidden;
 }
-.top-article dl.contents-item dd p {
-}
 .top-article .pubDate {
     text-align: right;
     color: #222;

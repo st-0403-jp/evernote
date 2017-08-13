@@ -30,6 +30,7 @@
 <link rel="stylesheet" type="text/css" href="lib/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="lib/sanitize.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" media="(max-width: 478px)" href="css/sp-common.css">
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -73,20 +74,11 @@
                 var mi = '0' + upDate.getMinutes();
                     mi = mi.slice(-2);
                 var time = h + mi;
-                var firstText = noteData.noteText.split(/(<\/div>)/)[0] + '</div>';
+                var firstText = noteData.noteText.split(/(<\/div>)/)[0].replace('<div>', '');
             %>
             <li>
                 <a href="viewData/<%= noteData.update %>">
                     <dl class="contents-item">
-                        <div class="icon-list">
-                            <% if (noteData.notebook === '技術') { %>
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                            <% } else if (noteData.notebook === 'ラーメン') { %>
-                            <i class="fa fa-cutlery" aria-hidden="true"></i>
-                            <% } else if (noteData.notebook === 'ブログ-マネジメント') { %>
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <% } %>
-                        </div>
                         <dt>
                             <h2><%= noteData.noteTitle %></h2>
                         </dt>
