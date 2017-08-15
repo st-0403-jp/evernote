@@ -15,7 +15,7 @@ var rename = require('gulp-rename');
 
 var command = process.argv[2];
 
-var version = 'v240';
+var version = 'v250';
 
 /**
  * buildかどうかチェックする
@@ -73,6 +73,10 @@ var metaData = {
  */
 var newsData = {
   dl: [
+    {
+      dt: '2017.08.13',
+      dd: 'レスポンシブ対応'
+    },
     {
       dt: '2017.06.21',
       dd: '背景色を薄くした'
