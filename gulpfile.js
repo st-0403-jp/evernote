@@ -102,6 +102,10 @@ var newsData = {
  * @tag { string }
  */
 var affiliateData = [
+  //GMOクラウド
+  '<a href="https://px.a8.net/svt/ejp?a8mat=2TPBQJ+VJZUA+2KX0+2BEEF5" target="_blank" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www25.a8.net/svt/bgt?aid=170822827053&wid=001&eno=01&mid=s00000012042014008000&mc=1"></a><img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=2TPBQJ+VJZUA+2KX0+2BEEF5" alt="">',
+  //フィギュア
+  '<a href="https://px.a8.net/svt/ejp?a8mat=2TPBQI+EY7VN6+3VEW+5ZMCH" target="_blank" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www22.a8.net/svt/bgt?aid=170822826904&wid=001&eno=01&mid=s00000018068001006000&mc=1"></a><img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=2TPBQI+EY7VN6+3VEW+5ZMCH" alt="">',
   //ドメイン
   '<a href="https://px.a8.net/svt/ejp?a8mat=2TJ1FT+D4Q73M+3AHA+3B4EPT" target="_blank" rel="nofollow"><img border="0" width="250" height="250" alt="" src="https://www29.a8.net/svt/bgt?aid=170529545794&wid=001&eno=01&mid=s00000015355020008000&mc=1"></a><img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=2TJ1FT+D4Q73M+3AHA+3B4EPT" alt="">',
   //ラピッドVPS
