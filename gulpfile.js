@@ -56,14 +56,14 @@ var pass = (buildCheck()) ? {
  * meta
  */
 var metaData = {
-  keywords: '田中暁, SatoruTanaka, tanaka satoru, ラーメン, ramen, Web, フロントエンド, front end engineer, HTML, html, CSS, css, FontAwesome, LESS, GoogleFonts, JavaScript, JS, js, Evernote, NodeJS, Node, GulpJS, gulp, EJS, bower, npm',
-  description: '東京のラーメンを食べ歩いているので、誰かのためになればと思い、ブログにしました。正確には車なので歩いてはいないw深夜に行くことも多いのでその辺りの参考になればとwよろしくお願いしますmm'
+  keywords: 'ラーメン, ramen, 深夜ラーメン, 家系ラーメン, 豚骨ラーメン, とんこつラーメン, 濃厚, 美味しい, おいしい, うまい, 深夜, 都内, ラーメンブログ, 車でラーメン, さささ, 田中暁, Web, フロントエンドエンジニア, HTML, CSS, GoogleFonts, JavaScript, JS, Evernote, Node, node.js',
+  description: '東京のラーメンを食べ歩いています。誰かのためになればと思いブログにしました。車で行くことが多く深夜行くことも多いのであまり歩いてはいない。みんな大好きラーメン、ぜひ行ってみてください！'
 };
 
 /**
  * copyrights year
  */
- var toYear = '2017';
+ var toYear = '2018';
 
 /**
  * news
@@ -74,24 +74,24 @@ var metaData = {
 var newsData = {
   dl: [
     {
+      dt: '2018.02.18',
+      dd: 'レイアウトを変更しました。'
+    },
+    {
       dt: '2017.08.13',
-      dd: 'レスポンシブ対応'
+      dd: 'スマホに対応しました。'
     },
     {
       dt: '2017.06.21',
-      dd: '背景色を薄くした'
+      dd: '背景色を薄くしました。'
     },
     {
       dt: '2017.04.20',
-      dd: 'ラーメン記事のみにした'
+      dd: 'ラーメン記事のみにしました。'
     },
     {
       dt: '2017.01.03',
-      dd: 'マネジメントアイコンを追加。'
-    },
-    {
-      dt: '2016.12.20',
-      dd: 'フォローボタン、いいねボタンを追加しました。<br>クロスブラウザ対応。'
+      dd: 'マネジメントアイコンを追加しました。'
     }
   ]
 };

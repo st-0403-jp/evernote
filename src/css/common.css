@@ -8,8 +8,8 @@ html, body {
 }
 body {
     /*background-color: #c0c0c0;*/
-    background-color: #dfdfdf;
-    color: #222;
+    background-color: #df3737;
+    color: #000;
 }
 img {
     max-width: 100%;
@@ -34,24 +34,20 @@ a {
     transition: all 0.2s;
 }
 a:link {
-    color: #222;
+    color: #000;
     text-decoration: none;
 }
 a:visited {
-    color: #222;
+    color: #000;
     text-decoration: none;
 }
 a:hover {
-    color: #222;
+    color: #000;
     text-decoration: none;
 }
 a:active {
-    color: #222;
+    color: #000;
     text-decoration: none;
-}
-header a:link,
-header a:visited {
-    color: #fff;
 }
 footer a:hover {
     opacity: 0.3;
@@ -63,7 +59,7 @@ ul {
 /* module */
 header {
     padding: 20px 12px;
-    color: #fff;
+    color: #000;
 }
 header p {
     font-weight: bold;
