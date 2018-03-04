@@ -180,12 +180,16 @@ article ul.top-article li {
 }
 article ul.top-article li a {
     display: block;
+    position: relative;
 }
-article ul.top-article li a:hover,
-article ul.top-article li a:active {
-    opacity: 0.5;
-    box-shadow: 1px 1px 30px 1px #222;
+article ul.top-article li a .icon-next {
+    display: none;
+    font-size: 3em;
+    position: absolute;
+    top: 41%;
+    right: 15%;
 }
+
 article ul.top-article li:last-child {
     margin-bottom: 20px;
 }
@@ -195,9 +199,11 @@ article ul.top-article li:last-child {
     height: 300px;
     padding: 40px 48px;
     border-radius: 5px;
+    background-color: #ffd700;
     box-shadow: 1px 1px 3px 1px #222;
     overflow: hidden;
     position: relative;
+    transition: all .3s ease-out
 }
 .top-article dl.contents-item dt {
     letter-spacing: 0.05em;
@@ -208,6 +214,24 @@ article ul.top-article li:last-child {
     height: 100px;
     overflow: hidden;
 }
+article ul.top-article li a:hover .contents-item,
+article ul.top-article li a:active .contents-item {
+    width: 70%;
+}
+@keyframes rightMove {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(30px);
+    }
+}
+article ul.top-article li a:hover .icon-next,
+article ul.top-article li a:active .icon-next {
+    display: inline-block;
+    animation: rightMove .5s linear infinite;
+}
+
 .top-article .pubDate {
     text-align: right;
     color: #222;
